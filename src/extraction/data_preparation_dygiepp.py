@@ -15,8 +15,8 @@ import argparse
 
 def get_args():
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument("data_path", type=str, default="../../dataset/computer_science/", help="")
-    parser.add_argument("data_output_dir", type=str, default="../../outputs/dygiepp_input/", help="")
+    parser.add_argument("--data_path", type=str, default="../../dataset/computer_science/", help="")
+    parser.add_argument("--data_output_dir", type=str, default="../../outputs/dygiepp_input/", help="")
     return parser.parse_args()
 
 

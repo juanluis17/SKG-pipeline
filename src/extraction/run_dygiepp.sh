@@ -32,5 +32,5 @@ do
                 allennlp predict pretrained/scierc.tar.gz $input_directory$filename --predictor dygie --include-package dygie --use-dataset-reader --output-file $output_directory${filename}  --cuda-device ${GPU}
         fi
 done
-rm -R ${input_directory}
+
 

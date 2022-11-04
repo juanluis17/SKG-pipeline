@@ -13,7 +13,6 @@ import argparse
 """
 
 
-
 def get_args():
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("data_path", type=str, default="../../dataset/computer_science/", help="")
@@ -46,7 +45,10 @@ def main():
             print('> processing:', file)
             for paper_row in f:
                 paper = json.loads(paper_row)
-                source = paper['_source']
+                if '_source' in paper.keys():
+                    source = paper['_source']
+                else:
+                    source = paper
 
                 if 'id' in source:
                     paper_id = source['id']
@@ -56,6 +58,8 @@ def main():
 
                 if 'papertitle' in source:
                     title = source['papertitle']
+                elif 'title' in source:
+                    title = paper['title']
                 else:
                     title = ''
                     continue
@@ -94,6 +98,7 @@ def main():
 
         fw.flush()
         fw.close()
+
 
 if __name__ == "__main__":
     main()

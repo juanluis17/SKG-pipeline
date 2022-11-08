@@ -373,8 +373,15 @@ def extraction(filename):
     paper2metadata = {}
     for row in f:
         drow = json.loads(row)
-        paper_id = drow['_id']
-        paper2metadata[paper_id] = drow['_source']
+        if '_id' in drow.keys():
+            paper_id = drow['_id']
+        else:
+            paper_id = drow['id']
+        if '_source' in drow.keys():
+            paper2metadata[paper_id] = drow['_source']
+        else:
+            paper2metadata[paper_id] = drow
+
     f.close()
 
     print('> processing: ' + filename + ' dygiepp reading')
@@ -394,9 +401,15 @@ def extraction(filename):
             corenlp_out = {}
             props = {'annotators': 'openie,tokenize,pos,depparse', 'pipelineLanguage': 'en', 'outputFormat': 'json'}
             try:
-                text_data = paper2metadata[paper_id]['papertitle'].encode('utf8', 'ignore').decode('ascii',
-                                                                                                   'ignore') + '. ' + \
-                            paper2metadata[paper_id]['abstract'].encode('utf8', 'ignore').decode('ascii', 'ignore')
+                if 'papertitle' in paper2metadata[paper_id].keys():
+                    text_data = paper2metadata[paper_id]['papertitle'].encode('utf8', 'ignore').decode('ascii',
+                                                                                                       'ignore') + '. ' + \
+                                paper2metadata[paper_id]['abstract'].encode('utf8', 'ignore').decode('ascii', 'ignore')
+                else:
+                    text_data = paper2metadata[paper_id]['title'].encode('utf8', 'ignore').decode('ascii',
+                                                                                                  'ignore') + '. ' + \
+                                paper2metadata[paper_id]['abstract'].encode('utf8', 'ignore').decode('ascii', 'ignore')
+
                 corenlp_out = json.loads(nlp.annotate(text_data, properties=props))
                 openie_triples = getOpenieTriples(corenlp_out, paper2dygiepp[paper_id],
                                                   paper2metadata[paper_id]['cso_semantic_topics'] +
@@ -426,7 +439,6 @@ def extraction(filename):
                 print(e)
     fw.flush()
     fw.close()
-
 
 
 if __name__ == '__main__':

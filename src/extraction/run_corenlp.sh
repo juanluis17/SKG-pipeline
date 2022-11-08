@@ -8,7 +8,7 @@ source ~/anaconda3/etc/profile.d/conda.sh
 conda activate dygiepp
 pip install stanfordcorenlp networkx
 
-if  [ ! -e stanford-corenlp-4.5.1 ]; then
+if  [ ! -d stanford-corenlp-4.5.1 ]; then
   wget https://downloads.cs.stanford.edu/nlp/software/stanford-corenlp-4.5.1.zip
   unzip stanford-corenlp-4.5.1.zip
   rm stanford-corenlp-4.5.1.zip

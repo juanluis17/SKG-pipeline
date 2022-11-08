@@ -14,7 +14,7 @@ if  [ ! -d stanford-corenlp-4.5.1 ]; then
   rm stanford-corenlp-4.5.1.zip
 fi
 
-cd stanford-corenlp-4.5.0
+cd stanford-corenlp-4.5.1
 java -mx8g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9050 -timeout 15000 -threads 4 &
 corenlp_process_pid=$!
 cd ..

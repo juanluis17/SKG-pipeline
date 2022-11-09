@@ -14,6 +14,7 @@ import ast
 import os
 import re
 import argparse
+from cso_classifier import CSOClassifier
 
 # dataset_dump_dir = '../../dataset/computer_science/'
 # dygiepp_output_dump_dir = '../../outputs/dygiepp_output/'
@@ -362,6 +363,7 @@ def manageEntitiesAndDygieepRelations(dygiepp, cso_topics):
 
 
 def extraction(filename):
+    cc = CSOClassifier(explanation=True)
     if filename[-5:] != '.json':
         return
 
@@ -410,6 +412,16 @@ def extraction(filename):
                                                                                                   'ignore') + '. ' + \
                                 paper2metadata[paper_id]['abstract'].encode('utf8', 'ignore').decode('ascii', 'ignore')
 
+                if 'cso_semantic_topics' not in paper2metadata[paper_id].keys():
+                    result = cc.run({
+                        "title": paper2metadata[paper_id]['papertitle'] if 'papertitle' in paper2metadata[
+                            paper_id].keys() else paper2metadata[paper_id]['title'],
+                        "abstract": paper2metadata[paper_id]['abstract'],
+                        "keywords": ""
+                    })
+                    paper2metadata[paper_id]['cso_semantic_topics'] = result['semantic']
+                    paper2metadata[paper_id]['cso_syntactic_topics'] = result['syntactic']
+
                 corenlp_out = json.loads(nlp.annotate(text_data, properties=props))
                 openie_triples = getOpenieTriples(corenlp_out, paper2dygiepp[paper_id],
                                                   paper2metadata[paper_id]['cso_semantic_topics'] +
@@ -432,7 +444,8 @@ def extraction(filename):
                     'openie_triples': list(openie_triples),
                     'pos_triples': list(pos_triples),
                     'dependency_triples': list(dependency_triples),
-                    'dygiepp_triples': list(dygiepp_triples)
+                    'dygiepp_triples': list(dygiepp_triples),
+                    "cso_classifier": result
                 }, fw)
                 fw.write('\n')
             except Exception as e:

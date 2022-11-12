@@ -9,7 +9,7 @@ import os
 import gc
 import nltk
 nltk.download('wordnet')
-
+nltk.download('wordnet_ic')
 
 class TriplesGenerator:
     def __init__(self, data_extracted_dir):

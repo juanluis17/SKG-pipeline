@@ -7,6 +7,8 @@ import pickle
 import json
 import os
 import gc
+import nltk
+nltk.download('wordnet')
 
 
 class TriplesGenerator:

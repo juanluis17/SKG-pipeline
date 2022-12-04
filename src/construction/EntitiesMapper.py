@@ -39,7 +39,7 @@ class EntitiesMapper:
 
     def linkThroughCSO(self):
         print('- \t >> Mapping with cso started')
-
+        timepoint = time.time()
         entities_to_explore = set(self.entities) - set(self.e2cso.keys())
         if len(entities_to_explore) <= 0:
             return
@@ -49,6 +49,7 @@ class EntitiesMapper:
 
         with open(self.csoResourcePath, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
+            c = 0
             for s, p, o in csv_reader:
                 s = s[1:-1]
                 p = p[1:-1]
@@ -66,6 +67,14 @@ class EntitiesMapper:
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
                 if entity in self.entities:
                     self.e2cso[entity] = o
+
+                c += 1
+                if c % 100 == 0:
+                    print('\t >> CSO Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
+                    pickle_out = open("../../resources/e2cso.pickle", "wb")
+                    pickle.dump(self.e2cso, pickle_out)
+                    pickle_out.flush()
+                    pickle_out.close()
         pickle_out = open("../../resources/e2cso.pickle", "wb")
         pickle.dump(self.e2cso, pickle_out)
         pickle_out.close()
@@ -206,7 +215,6 @@ class EntitiesMapper:
 
     def linkThroughDBpediaSpotLight(self):
         print('- \t >> Mapping with dbpedia started')
-
         entities_to_explore = set(self.entities) - set(self.e2dbpedia.keys())
         if len(entities_to_explore) <= 0:
             return

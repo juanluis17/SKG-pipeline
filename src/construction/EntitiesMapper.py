@@ -210,7 +210,7 @@ class EntitiesMapper:
         entities_to_explore = set(self.entities) - set(self.e2dbpedia.keys())
         if len(entities_to_explore) <= 0:
             return
-
+        print('- \t >> Entities to be linked to dbpedia:', len(entities_to_explore))
         self.findNeiighbors()
 
         c = 0
@@ -283,8 +283,8 @@ class EntitiesMapper:
     def load(self):
 
         p_cso = Process(target=self.linkThroughCSO)
-        # p_wikidata = Process(target=self.linkThroughWikidata)
-        # p_dbpedia = Process(target=self.linkThroughDBpediaSpotLight)
+        p_wikidata = Process(target=self.linkThroughWikidata)
+        p_dbpedia = Process(target=self.linkThroughDBpediaSpotLight)
 
         if os.path.exists("../../resources/e2cso.pickle"):
             f = open("../../resources/e2cso.pickle", "rb")
@@ -292,30 +292,30 @@ class EntitiesMapper:
             f.close()
         p_cso.start()
 
-        # if os.path.exists("../../resources/e2dbpedia.pickle"):
-        #     f = open("../../resources/e2dbpedia.pickle", "rb")
-        #     self.e2dbpedia = pickle.load(f)
-        #     f.close()
-        # p_dbpedia.start()
-        #
-        # if os.path.exists("../../resources/e2wikidata.pickle"):
-        #     f = open("../../resources/e2wikidata.pickle", "rb")
-        #     self.e2wikidata = pickle.load(f)
-        #     f.close()
-        # p_wikidata.start()
+        if os.path.exists("../../resources/e2dbpedia.pickle"):
+            f = open("../../resources/e2dbpedia.pickle", "rb")
+            self.e2dbpedia = pickle.load(f)
+            f.close()
+        p_dbpedia.start()
+
+        if os.path.exists("../../resources/e2wikidata.pickle"):
+            f = open("../../resources/e2wikidata.pickle", "rb")
+            self.e2wikidata = pickle.load(f)
+            f.close()
+        p_wikidata.start()
 
         try:
             p_cso.join()
         except:
             pass
-        # try:
-        #     p_wikidata.join()
-        # except:
-        #     pass
-        # try:
-        #     p_dbpedia.join()
-        # except:
-        #     pass
+        try:
+            p_wikidata.join()
+        except:
+            pass
+        try:
+            p_dbpedia.join()
+        except:
+            pass
 
     def run(self):
         print('\t>> Entities to be mapped:', len(self.entities))

@@ -297,18 +297,21 @@ class EntitiesMapper:
         if os.path.exists("../../resources/e2cso.pickle"):
             f = open("../../resources/e2cso.pickle", "rb")
             self.e2cso = pickle.load(f)
+            print('- Entities mapped with CSO:', len(self.e2cso))
             f.close()
         p_cso.start()
 
         if os.path.exists("../../resources/e2dbpedia.pickle"):
             f = open("../../resources/e2dbpedia.pickle", "rb")
             self.e2dbpedia = pickle.load(f)
+            print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
             f.close()
         p_dbpedia.start()
 
         if os.path.exists("../../resources/e2wikidata.pickle"):
             f = open("../../resources/e2wikidata.pickle", "rb")
             self.e2wikidata = pickle.load(f)
+            print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
             f.close()
         p_wikidata.start()
 
@@ -355,4 +358,3 @@ if __name__ == '__main__':
                ]
     mapper = EntitiesMapper(entities, triples)
     mapper.run()
-

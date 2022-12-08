@@ -343,7 +343,7 @@ class EntitiesMapper:
                 print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
                 f.close()
         entities_to_explore = list(set(self.entities) - set(self.e2wikidata.keys()))
-        chunk_size = int(len(entities_to_explore) / 50)
+        chunk_size = int(len(entities_to_explore) / 10)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []

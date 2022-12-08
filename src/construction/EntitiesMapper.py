@@ -307,7 +307,7 @@ class EntitiesMapper:
                 print('- Entities mapped with CSO:', len(self.e2cso))
 
         entities_to_explore = list(set(self.entities).difference(set(self.e2cso.keys())))
-        chunk_size = int(len(entities_to_explore) / 3)
+        chunk_size = int(len(entities_to_explore) / 5)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_cso = []
@@ -321,7 +321,7 @@ class EntitiesMapper:
                 self.e2dbpedia = pickle.load(open("../../resources/e2dbpedia.pickle", "rb"))
                 print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
         entities_to_explore = list(set(self.entities).difference(set(self.e2dbpedia.keys())))
-        chunk_size = int(len(entities_to_explore) / 3)
+        chunk_size = int(len(entities_to_explore) / 5)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_dbpedia = []

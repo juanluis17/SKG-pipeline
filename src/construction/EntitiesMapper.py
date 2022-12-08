@@ -72,7 +72,7 @@ class EntitiesMapper:
                     if entity in self.entities:
                         self.e2cso[entity] = o
                 with self.lock:
-                    if len(self.e2cso) % 1000 == 0:
+                    if len(self.e2cso) % 100 == 0:
                         print('\t >> CSO Processed', len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle_out = open("../../resources/e2cso.pickle", "wb+")
@@ -80,6 +80,7 @@ class EntitiesMapper:
                         pickle_out.flush()
                         pickle_out.close()
         with self.lock:
+            print('> Saving...')
             pickle_out = open("../../resources/e2cso.pickle", "wb")
             pickle.dump(self.e2cso, pickle_out)
             pickle_out.close()
@@ -166,7 +167,7 @@ class EntitiesMapper:
 
                 c += 1
                 with self.lock:
-                    if len(self.e2wikidata) % 1000 == 0:
+                    if len(self.e2wikidata) % 100 == 0:
                         print('\t >> Wikidata Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle_out = open("../../resources/e2wikidata.pickle", "wb")
                         pickle.dump(self.e2wikidata, pickle_out)
@@ -271,12 +272,13 @@ class EntitiesMapper:
 
                 c += 1
                 with self.lock:
-                    if len(self.e2dbpedia) % 1000 == 0:
+                    if len(self.e2dbpedia) % 100 == 0:
                         print('- \t>> DBpedia Processed', c, 'entities in', (time.time() - timepoint), 'secs')
                         pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
                         pickle.dump(self.e2dbpedia, pickle_out)
                         pickle_out.close()
         with self.lock:
+            print('> Saving...')
             pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
             pickle.dump(self.e2dbpedia, pickle_out)
             pickle_out.close()

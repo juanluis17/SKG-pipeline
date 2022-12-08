@@ -37,7 +37,9 @@ class EntitiesMapper:
 
         self.csoResourcePath = '../../resources/CSO.3.1.csv'
         self.mappedTriples = {}  # main output of this class
-        self.lock = RLock()
+        self.lock_cso = RLock()
+        self.lock_dbpedia = RLock()
+        self.lock_wiki = RLock()
 
     def linkThroughCSO(self, entities_to_explore):
         print('- \t >> Mapping with cso started')
@@ -58,25 +60,26 @@ class EntitiesMapper:
 
                 entity = s.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
                 if entity in entities_to_explore_subset:
-                    with self.lock:
+                    with self.lock_cso:
                         self.e2cso[entity] = s
                     if p == 'http://www.w3.org/2002/07/owl#sameAs':
-                        with self.lock:
+                        with self.lock_wiki:
                             if 'wikidata' in o:
                                 self.e2wikidata[entity] = o
+                        with self.lock_dbpedia:
                             if 'dbpedia' in o:
                                 self.e2dbpedia[entity] = o
 
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
-                with self.lock:
+                with self.lock_cso:
                     if entity in self.entities:
                         self.e2cso[entity] = o
-                with self.lock:
+                with self.lock_cso:
                     if len(self.e2cso) % 100 == 0:
                         print('\t >> CSO Processed', len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
-        with self.lock:
+        with self.lock_cso:
             print('> Saving...')
             pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
             print('- \t >> Mapped to CSO:', len(self.e2cso))
@@ -146,7 +149,7 @@ class EntitiesMapper:
                     jresponse = json.loads(result)
                     variables = jresponse['head']['vars']
                     for binding in jresponse['results']['bindings']:
-                        with self.lock:
+                        with self.lock_wiki:
                             if 'entity' in binding and e not in self.e2wikidata:
                                 if 'http://www.wikidata.org/entity/Q' in binding['entity']['value']:  # no wikidata:PXYZ
                                     self.e2wikidata[e] = binding['entity']['value']
@@ -161,7 +164,7 @@ class EntitiesMapper:
                 # print('>    alt', binding['altLabel']['value'].lower(), binding['entity']['value'])
 
                 c += 1
-                with self.lock:
+                with self.lock_wiki:
                     if len(self.e2wikidata) % 100 == 0:
                         print('\t >> Wikidata Processed', len(self.e2wikidata),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
@@ -179,7 +182,7 @@ class EntitiesMapper:
                 time.sleep(60)
             except Exception as ex:
                 print(ex)
-        with self.lock:
+        with self.lock_wiki:
             print('> Saving...')
             pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
             print('> Mapped to Wikidata:', len(self.e2wikidata))
@@ -224,11 +227,10 @@ class EntitiesMapper:
         c = 0
         timepoint = time.time()
         for e in entities_to_explore_subset:
-            with self.lock:
+            with self.lock_dbpedia:
                 bool_cond = e not in self.e2dbpedia
             if bool_cond:
-                with self.lock:
-                    neighbors = self.e2neighbors[e]
+                neighbors = self.e2neighbors[e]
 
                 # content = [e] + [self.id2e[nid] for nid in neighbors_ids[:20]]
                 content = [e] + neighbors
@@ -250,7 +252,7 @@ class EntitiesMapper:
                         if 'Resources' in jresponse:
                             for resource in jresponse['Resources']:
                                 if resource['@surfaceForm'] == e and float(resource['@similarityScore']) >= 0.8:
-                                    with self.lock:
+                                    with self.lock_dbpedia:
                                         self.e2dbpedia[e] = resource['@URI']
                                     break
 
@@ -262,12 +264,12 @@ class EntitiesMapper:
                     pass
 
                 c += 1
-                with self.lock:
+                with self.lock_dbpedia:
                     if len(self.e2dbpedia) % 100 == 0:
                         print('- \t>> DBpedia Processed', len(self.e2dbpedia), 'entities in', (time.time() - timepoint),
                               'secs')
                         pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
-        with self.lock:
+        with self.lock_dbpedia:
             print('> Saving...')
             pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
             print('- \t >> Mapped to DBpedia:', len(self.e2dbpedia))
@@ -292,7 +294,7 @@ class EntitiesMapper:
     '''
 
     def load(self):
-        with self.lock:
+        with self.lock_cso:
             if os.path.exists("../../resources/e2cso.pickle"):
                 self.e2cso = pickle.load(open("../../resources/e2cso.pickle", "rb"))
                 print('- Entities mapped with CSO:', len(self.e2cso))
@@ -307,7 +309,7 @@ class EntitiesMapper:
         for th in threads_cso:
             th.start()
 
-        with self.lock:
+        with self.lock_dbpedia:
             if os.path.exists("../../resources/e2dbpedia.pickle"):
                 self.e2dbpedia = pickle.load(open("../../resources/e2dbpedia.pickle", "rb"))
                 print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
@@ -321,7 +323,7 @@ class EntitiesMapper:
         for th in threads_dbpedia:
             th.start()
 
-        with self.lock:
+        with self.lock_wiki:
             if os.path.exists("../../resources/e2wikidata.pickle"):
                 self.e2wikidata = pickle.load(open("../../resources/e2wikidata.pickle", "rb"))
                 print('- Entities mapped with e2wikidata:', len(self.e2wikidata))

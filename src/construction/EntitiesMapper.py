@@ -75,15 +75,10 @@ class EntitiesMapper:
                     if len(self.e2cso) % 100 == 0:
                         print('\t >> CSO Processed', len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
-                        pickle_out = open("../../resources/e2cso.pickle", "wb+")
-                        pickle.dump(self.e2cso, pickle_out)
-                        pickle_out.flush()
-                        pickle_out.close()
+                        pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
         with self.lock:
             print('> Saving...')
-            pickle_out = open("../../resources/e2cso.pickle", "wb")
-            pickle.dump(self.e2cso, pickle_out)
-            pickle_out.close()
+            pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
             print('- \t >> Mapped to CSO:', len(self.e2cso))
 
     def linkThroughWikidata(self, entities_to_explore):
@@ -168,11 +163,9 @@ class EntitiesMapper:
                 c += 1
                 with self.lock:
                     if len(self.e2wikidata) % 100 == 0:
-                        print('\t >> Wikidata Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
-                        pickle_out = open("../../resources/e2wikidata.pickle", "wb")
-                        pickle.dump(self.e2wikidata, pickle_out)
-                        pickle_out.flush()
-                        pickle_out.close()
+                        print('\t >> Wikidata Processed', len(self.e2wikidata),
+                              'entities in {:.2f} secs.'.format(time.time() - timepoint))
+                        pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
             # print('- \t >> Saving', len(self.e2wikidata), 'mappings')
             # raise urllib.error.HTTPError(req.full_url, '100', 'ciao', {'pippo':'pippo'}, fp=None)
 
@@ -188,9 +181,7 @@ class EntitiesMapper:
                 print(ex)
         with self.lock:
             print('> Saving...')
-            pickle_out = open("../../resources/e2wikidata.pickle", "wb")
-            pickle.dump(self.e2wikidata, pickle_out)
-            pickle_out.close()
+            pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
             print('> Mapped to Wikidata:', len(self.e2wikidata))
 
     def findNeiighbors(self):
@@ -273,15 +264,12 @@ class EntitiesMapper:
                 c += 1
                 with self.lock:
                     if len(self.e2dbpedia) % 100 == 0:
-                        print('- \t>> DBpedia Processed', c, 'entities in', (time.time() - timepoint), 'secs')
-                        pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
-                        pickle.dump(self.e2dbpedia, pickle_out)
-                        pickle_out.close()
+                        print('- \t>> DBpedia Processed', len(self.e2dbpedia), 'entities in', (time.time() - timepoint),
+                              'secs')
+                        pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
         with self.lock:
             print('> Saving...')
-            pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
-            pickle.dump(self.e2dbpedia, pickle_out)
-            pickle_out.close()
+            pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
             print('- \t >> Mapped to DBpedia:', len(self.e2dbpedia))
 
     '''def save(self):
@@ -306,10 +294,8 @@ class EntitiesMapper:
     def load(self):
         with self.lock:
             if os.path.exists("../../resources/e2cso.pickle"):
-                f = open("../../resources/e2cso.pickle", "rb")
-                self.e2cso = pickle.load(f)
+                self.e2cso = pickle.load(open("../../resources/e2cso.pickle", "rb"))
                 print('- Entities mapped with CSO:', len(self.e2cso))
-                f.close()
         entities_to_explore = list(set(self.entities) - set(self.e2cso.keys()))
         chunk_size = int(len(entities_to_explore) / 50)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
@@ -322,10 +308,8 @@ class EntitiesMapper:
 
         with self.lock:
             if os.path.exists("../../resources/e2dbpedia.pickle"):
-                f = open("../../resources/e2dbpedia.pickle", "rb")
-                self.e2dbpedia = pickle.load(f)
+                self.e2dbpedia = pickle.load(open("../../resources/e2dbpedia.pickle", "rb"))
                 print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
-                f.close()
         entities_to_explore = list(set(self.entities) - set(self.e2dbpedia.keys()))
         chunk_size = int(len(entities_to_explore) / 50)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
@@ -338,10 +322,8 @@ class EntitiesMapper:
 
         with self.lock:
             if os.path.exists("../../resources/e2wikidata.pickle"):
-                f = open("../../resources/e2wikidata.pickle", "rb")
-                self.e2wikidata = pickle.load(f)
+                self.e2wikidata = pickle.load(open("../../resources/e2wikidata.pickle", "rb"))
                 print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
-                f.close()
         entities_to_explore = list(set(self.entities) - set(self.e2wikidata.keys()))
         chunk_size = int(len(entities_to_explore) / 10)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in

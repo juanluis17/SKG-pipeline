@@ -26,6 +26,11 @@ class EntitiesMapper:
         self.e2cso = {}
         self.e2wikidata = {}
         self.e2dbpedia = {}
+
+        self.e2cso_processed = set()
+        self.e2wikidata_processed = set()
+        self.e2dbpedia_processed = set()
+
         self.e2alternativeLabels = {}
         self.all_pairs = all_pairs
         self.e2neighbors = {}
@@ -60,6 +65,8 @@ class EntitiesMapper:
 
                 entity = s.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
                 print('[{}]\t >> Processing entity: {}'.format(name, entity))
+                with self.lock_cso:
+                    self.e2cso_processed.add(entity)
                 if entity in entities_to_explore_subset:
                     with self.lock_cso:
                         self.e2cso[entity] = s
@@ -74,6 +81,8 @@ class EntitiesMapper:
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
                 print('[{}]\t >> Processing entity: {}'.format(name, entity))
                 with self.lock_cso:
+                    self.e2cso_processed.add(entity)
+                with self.lock_cso:
                     if entity in self.entities:
                         self.e2cso[entity] = o
                 with self.lock_cso:
@@ -82,9 +91,13 @@ class EntitiesMapper:
                         print('[{}]\t >> CSO Processed'.format(name), len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
+                    if (len(self.e2cso_processed) % 5000) == 0:
+                        print('[{}]\t >> Saving Processed'.format(name), len(self.e2cso_processed))
+                        pickle.dump(self.e2cso_processed, open("../../resources/e2cso_processed.pickle", "wb+"))
         with self.lock_cso:
             print('[{}] > Saving...'.format(name))
             pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
+            pickle.dump(self.e2cso_processed, open("../../resources/e2cso_processed.pickle", "wb+"))
             print('[{}] >> Mapped to CSO:'.format(name), len(self.e2cso))
 
     def linkThroughWikidata(self, name, entities_to_explore):
@@ -165,7 +178,8 @@ class EntitiesMapper:
                                         self.e2wikidata[binding['altLabel']['value'].lower()] = binding['entity'][
                                             'value']
                 # print('>    alt', binding['altLabel']['value'].lower(), binding['entity']['value'])
-
+                with self.lock_wiki:
+                    self.e2wikidata_processed.add(e)
                 c += 1
                 with self.lock_wiki:
                     print('[{}]\t >> Mapped: {}'.format(name, len(self.e2wikidata)))
@@ -173,6 +187,10 @@ class EntitiesMapper:
                         print('[{}]\t >> Wikidata Processed'.format(name), len(self.e2wikidata),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
+                    if (len(self.e2wikidata_processed) % 5000) == 0:
+                        print('[{}]\t >> Wikidata Processed'.format(name), len(self.e2wikidata_processed))
+                        pickle.dump(self.e2wikidata_processed,
+                                    open("../../resources/e2wikidata_processed.pickle", "wb+"))
             # print('- \t >> Saving', len(self.e2wikidata), 'mappings')
             # raise urllib.error.HTTPError(req.full_url, '100', 'ciao', {'pippo':'pippo'}, fp=None)
 
@@ -189,6 +207,7 @@ class EntitiesMapper:
         with self.lock_wiki:
             print('[{}] Saving...'.format(name))
             pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
+            pickle.dump(self.e2wikidata_processed, open("../../resources/e2wikidata_processed.pickle", "wb+"))
             print('[{}] Mapped to Wikidata:'.format(name), len(self.e2wikidata))
 
     def findNeiighbors(self):
@@ -260,7 +279,8 @@ class EntitiesMapper:
                                     with self.lock_dbpedia:
                                         self.e2dbpedia[e] = resource['@URI']
                                     break
-
+                    with self.lock_dbpedia:
+                        self.e2dbpedia_processed.add(e)
                 except urllib.error.HTTPError as e:
                     print('[{}] HTTPError: {}'.format(name, e.code), 'sleeping...')
                     time.sleep(60)
@@ -276,9 +296,13 @@ class EntitiesMapper:
                               (time.time() - timepoint),
                               'secs')
                         pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
+                    if (len(self.e2dbpedia_processed) % 5000) == 0:
+                        print('[{}] \t>> DBpedia Processed'.format(name), len(self.e2dbpedia_processed))
+                        pickle.dump(self.e2dbpedia_processed, open("../../resources/e2dbpedia_processed.pickle", "wb+"))
         with self.lock_dbpedia:
             print('[{}] > Saving...'.format(name))
             pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
+            pickle.dump(self.e2dbpedia_processed, open("../../resources/e2dbpedia_processed.pickle", "wb+"))
             print('[{}] >> Mapped to DBpedia:'.format(name), len(self.e2dbpedia))
 
     '''def save(self):
@@ -305,8 +329,11 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2cso.pickle"):
                 self.e2cso = pickle.load(open("../../resources/e2cso.pickle", "rb"))
                 print('- Entities mapped with CSO:', len(self.e2cso))
-
-        entities_to_explore = list(set(self.entities).difference(set(self.e2cso.keys())))
+            if os.path.exists("../../resources/e2cso_processed.pickle"):
+                self.e2cso_processed = pickle.load(open("../../resources/e2cso_processed.pickle", "rb"))
+                print('- Entities processed with CSO:', len(self.e2cso_processed))
+        diff_1 = set(self.entities).difference(set(self.e2cso.keys()))
+        entities_to_explore = list(diff_1.difference(self.e2cso_processed))
         chunk_size = int(len(entities_to_explore) / 1)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
@@ -320,7 +347,11 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2dbpedia.pickle"):
                 self.e2dbpedia = pickle.load(open("../../resources/e2dbpedia.pickle", "rb"))
                 print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
-        entities_to_explore = list(set(self.entities).difference(set(self.e2dbpedia.keys())))
+            if os.path.exists("../../resources/e2dbpedia_processed.pickle"):
+                self.e2dbpedia_processed = pickle.load(open("../../resources/e2dbpedia_processed.pickle", "rb"))
+                print('- Entities processed with DBPedia:', len(self.e2dbpedia_processed))
+        diff_1 = set(self.entities).difference(set(self.e2dbpedia.keys()))
+        entities_to_explore = list(diff_1.difference(self.e2dbpedia_processed))
         chunk_size = int(len(entities_to_explore) / 50)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
@@ -335,7 +366,11 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2wikidata.pickle"):
                 self.e2wikidata = pickle.load(open("../../resources/e2wikidata.pickle", "rb"))
                 print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
-        entities_to_explore = list(set(self.entities).difference(set(self.e2wikidata.keys())))
+            if os.path.exists("../../resources/e2wikidata_processed.pickle"):
+                self.e2wikidata_processed = pickle.load(open("../../resources/e2wikidata_processed.pickle", "rb"))
+                print('- Entities processed with e2wikidata:', len(self.e2wikidata_processed))
+        diff_1 = set(self.entities).difference(set(self.e2wikidata.keys()))
+        entities_to_explore = list(diff_1.difference(self.e2wikidata_processed))
         chunk_size = int(len(entities_to_explore) / 5)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]

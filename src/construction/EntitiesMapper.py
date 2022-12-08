@@ -17,6 +17,7 @@ import json
 import time
 import csv
 import os
+from threading import RLock, Thread
 
 
 class EntitiesMapper:
@@ -36,60 +37,64 @@ class EntitiesMapper:
 
         self.csoResourcePath = '../../resources/CSO.3.1.csv'
         self.mappedTriples = {}  # main output of this class
+        self.lock = RLock()
 
-    def linkThroughCSO(self):
+    def linkThroughCSO(self, entities_to_explore):
         print('- \t >> Mapping with cso started')
         timepoint = time.time()
-        entities_to_explore = set(self.entities) - set(self.e2cso.keys())
-        if len(entities_to_explore) <= 0:
+        entities_to_explore_subset = entities_to_explore
+        if len(entities_to_explore_subset) <= 0:
             return
 
-        print('- \t >> Entities to be linked to cso:', len(entities_to_explore))
+        print('- \t >> Entities to be linked to cso: {}'.format(len(entities_to_explore_subset)))
         cso = rdflib.Graph()
 
         with open(self.csoResourcePath, 'r', encoding='utf-8') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
-            c = 0
             for s, p, o in csv_reader:
                 s = s[1:-1]
                 p = p[1:-1]
                 o = o[1:-1]
 
                 entity = s.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
-                if entity in entities_to_explore:
-                    self.e2cso[entity] = s
+                if entity in entities_to_explore_subset:
+                    with self.lock:
+                        self.e2cso[entity] = s
                     if p == 'http://www.w3.org/2002/07/owl#sameAs':
-                        if 'wikidata' in o:
-                            self.e2wikidata[entity] = o
-                        if 'dbpedia' in o:
-                            self.e2dbpedia[entity] = o
+                        with self.lock:
+                            if 'wikidata' in o:
+                                self.e2wikidata[entity] = o
+                            if 'dbpedia' in o:
+                                self.e2dbpedia[entity] = o
 
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
-                if entity in self.entities:
-                    self.e2cso[entity] = o
+                with self.lock:
+                    if entity in self.entities:
+                        self.e2cso[entity] = o
+                with self.lock:
+                    if len(self.e2cso) % 1000 == 0:
+                        print('\t >> CSO Processed', len(self.e2cso),
+                              'entities in {:.2f} secs.'.format(time.time() - timepoint))
+                        pickle_out = open("../../resources/e2cso.pickle", "wb+")
+                        pickle.dump(self.e2cso, pickle_out)
+                        pickle_out.flush()
+                        pickle_out.close()
+        with self.lock:
+            pickle_out = open("../../resources/e2cso.pickle", "wb")
+            pickle.dump(self.e2cso, pickle_out)
+            pickle_out.close()
+            print('- \t >> Mapped to CSO:', len(self.e2cso))
 
-                c += 1
-                if c % 100 == 0:
-                    print('\t >> CSO Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
-                    pickle_out = open("../../resources/e2cso.pickle", "wb")
-                    pickle.dump(self.e2cso, pickle_out)
-                    pickle_out.flush()
-                    pickle_out.close()
-        pickle_out = open("../../resources/e2cso.pickle", "wb")
-        pickle.dump(self.e2cso, pickle_out)
-        pickle_out.close()
-        print('- \t >> Mapped to CSO:', len(self.e2cso))
-
-    def linkThroughWikidata(self):
+    def linkThroughWikidata(self, entities_to_explore):
         print('- \t >> Mapping with wikidata started')
         timepoint = time.time()
         # sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-        entities_to_explore = list(set(self.entities) - set(self.e2wikidata.keys()))
-        if len(entities_to_explore) <= 0:
+        entities_to_explore_subset = entities_to_explore
+        if len(entities_to_explore_subset) <= 0:
             return
 
         # print('sorting entities...')
-        entities_to_explore = sorted(entities_to_explore, key=lambda x: len(x), reverse=True)
+        entities_to_explore = sorted(entities_to_explore_subset, key=lambda x: len(x), reverse=True)
         # print('sorted')
         c = 0
         print('- \t >> Entities to be linked to wikidata:', len(entities_to_explore))
@@ -145,26 +150,28 @@ class EntitiesMapper:
                     jresponse = json.loads(result)
                     variables = jresponse['head']['vars']
                     for binding in jresponse['results']['bindings']:
+                        with self.lock:
+                            if 'entity' in binding and e not in self.e2wikidata:
+                                if 'http://www.wikidata.org/entity/Q' in binding['entity']['value']:  # no wikidata:PXYZ
+                                    self.e2wikidata[e] = binding['entity']['value']
+                            # print('>    ', binding['entity']['value'])
 
-                        if 'entity' in binding and e not in self.e2wikidata:
-                            if 'http://www.wikidata.org/entity/Q' in binding['entity']['value']:  # no wikidata:PXYZ
-                                self.e2wikidata[e] = binding['entity']['value']
-                        # print('>    ', binding['entity']['value'])
-
-                        if 'altLabel' in binding:
-                            if binding['altLabel']['value'].lower() in entities_to_explore and binding['altLabel'][
-                                'value'].lower() not in self.e2wikidata:
-                                if 'http://www.wikidata.org/entity/Q' in binding['entity']['value']:
-                                    self.e2wikidata[binding['altLabel']['value'].lower()] = binding['entity']['value']
+                            if 'altLabel' in binding:
+                                if binding['altLabel']['value'].lower() in entities_to_explore and binding['altLabel'][
+                                    'value'].lower() not in self.e2wikidata:
+                                    if 'http://www.wikidata.org/entity/Q' in binding['entity']['value']:
+                                        self.e2wikidata[binding['altLabel']['value'].lower()] = binding['entity'][
+                                            'value']
                 # print('>    alt', binding['altLabel']['value'].lower(), binding['entity']['value'])
 
                 c += 1
-                if c % 100 == 0:
-                    print('\t >> Wikidata Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
-                    pickle_out = open("../../resources/e2wikidata.pickle", "wb")
-                    pickle.dump(self.e2wikidata, pickle_out)
-                    pickle_out.flush()
-                    pickle_out.close()
+                with self.lock:
+                    if len(self.e2wikidata) % 1000 == 0:
+                        print('\t >> Wikidata Processed', c, 'entities in {:.2f} secs.'.format(time.time() - timepoint))
+                        pickle_out = open("../../resources/e2wikidata.pickle", "wb")
+                        pickle.dump(self.e2wikidata, pickle_out)
+                        pickle_out.flush()
+                        pickle_out.close()
             # print('- \t >> Saving', len(self.e2wikidata), 'mappings')
             # raise urllib.error.HTTPError(req.full_url, '100', 'ciao', {'pippo':'pippo'}, fp=None)
 
@@ -178,11 +185,12 @@ class EntitiesMapper:
                 time.sleep(60)
             except Exception as ex:
                 print(ex)
-        print('> Saving...')
-        pickle_out = open("../../resources/e2wikidata.pickle", "wb")
-        pickle.dump(self.e2wikidata, pickle_out)
-        pickle_out.close()
-        print('> Mapped to Wikidata:', len(self.e2wikidata))
+        with self.lock:
+            print('> Saving...')
+            pickle_out = open("../../resources/e2wikidata.pickle", "wb")
+            pickle.dump(self.e2wikidata, pickle_out)
+            pickle_out.close()
+            print('> Mapped to Wikidata:', len(self.e2wikidata))
 
     def findNeiighbors(self):
 
@@ -213,19 +221,22 @@ class EntitiesMapper:
                 self.g.add_edge(self.e2id[s], self.e2id[o])
         '''
 
-    def linkThroughDBpediaSpotLight(self):
+    def linkThroughDBpediaSpotLight(self, entities_to_explore):
         print('- \t >> Mapping with dbpedia started')
-        entities_to_explore = set(self.entities) - set(self.e2dbpedia.keys())
-        if len(entities_to_explore) <= 0:
+        entities_to_explore_subset = entities_to_explore
+        if len(entities_to_explore_subset) <= 0:
             return
-        print('- \t >> Entities to be linked to dbpedia:', len(entities_to_explore))
+        print('- \t >> Entities to be linked to dbpedia:', len(entities_to_explore_subset))
         self.findNeiighbors()
 
         c = 0
         timepoint = time.time()
-        for e in entities_to_explore:
-            if e not in self.e2dbpedia:
-                neighbors = self.e2neighbors[e]
+        for e in entities_to_explore_subset:
+            with self.lock:
+                bool_cond = e not in self.e2dbpedia
+            if bool_cond:
+                with self.lock:
+                    neighbors = self.e2neighbors[e]
 
                 # content = [e] + [self.id2e[nid] for nid in neighbors_ids[:20]]
                 content = [e] + neighbors
@@ -247,7 +258,8 @@ class EntitiesMapper:
                         if 'Resources' in jresponse:
                             for resource in jresponse['Resources']:
                                 if resource['@surfaceForm'] == e and float(resource['@similarityScore']) >= 0.8:
-                                    self.e2dbpedia[e] = resource['@URI']
+                                    with self.lock:
+                                        self.e2dbpedia[e] = resource['@URI']
                                     break
 
                 except urllib.error.HTTPError as e:
@@ -258,16 +270,17 @@ class EntitiesMapper:
                     pass
 
                 c += 1
-                if c % 10000 == 0:
-                    print('- \t>> DBpedia Processed', c, 'entities in', (time.time() - timepoint), 'secs')
-                    pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
-                    pickle.dump(self.e2dbpedia, pickle_out)
-                    pickle_out.close()
-
-        pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
-        pickle.dump(self.e2dbpedia, pickle_out)
-        pickle_out.close()
-        print('- \t >> Mapped to DBpedia:', len(self.e2dbpedia))
+                with self.lock:
+                    if len(self.e2dbpedia) % 1000 == 0:
+                        print('- \t>> DBpedia Processed', c, 'entities in', (time.time() - timepoint), 'secs')
+                        pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
+                        pickle.dump(self.e2dbpedia, pickle_out)
+                        pickle_out.close()
+        with self.lock:
+            pickle_out = open("../../resources/e2dbpedia.pickle", "wb")
+            pickle.dump(self.e2dbpedia, pickle_out)
+            pickle_out.close()
+            print('- \t >> Mapped to DBpedia:', len(self.e2dbpedia))
 
     '''def save(self):
 
@@ -289,42 +302,61 @@ class EntitiesMapper:
     '''
 
     def load(self):
+        with self.lock:
+            if os.path.exists("../../resources/e2cso.pickle"):
+                f = open("../../resources/e2cso.pickle", "rb")
+                self.e2cso = pickle.load(f)
+                print('- Entities mapped with CSO:', len(self.e2cso))
+                f.close()
+        entities_to_explore = list(set(self.entities) - set(self.e2cso.keys()))
+        chunk_size = int(len(entities_to_explore) / 50)
+        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                        range(0, len(list(entities_to_explore)), chunk_size)]
+        threads_cso = []
+        for chunk in list_chunked:
+            threads_cso.append(Thread(target=self.linkThroughCSO, args=(chunk,)))
+        for th in threads_cso:
+            th.start()
 
-        p_cso = Process(target=self.linkThroughCSO)
-        p_wikidata = Process(target=self.linkThroughWikidata)
-        p_dbpedia = Process(target=self.linkThroughDBpediaSpotLight)
+        with self.lock:
+            if os.path.exists("../../resources/e2dbpedia.pickle"):
+                f = open("../../resources/e2dbpedia.pickle", "rb")
+                self.e2dbpedia = pickle.load(f)
+                print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
+                f.close()
+        entities_to_explore = list(set(self.entities) - set(self.e2dbpedia.keys()))
+        chunk_size = int(len(entities_to_explore) / 50)
+        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                        range(0, len(list(entities_to_explore)), chunk_size)]
+        threads_dbpedia = []
+        for chunk in list_chunked:
+            threads_dbpedia.append(Thread(target=self.linkThroughDBpediaSpotLight, args=(chunk,)))
+        for th in threads_dbpedia:
+            th.start()
 
-        if os.path.exists("../../resources/e2cso.pickle"):
-            f = open("../../resources/e2cso.pickle", "rb")
-            self.e2cso = pickle.load(f)
-            print('- Entities mapped with CSO:', len(self.e2cso))
-            f.close()
-        p_cso.start()
-
-        if os.path.exists("../../resources/e2dbpedia.pickle"):
-            f = open("../../resources/e2dbpedia.pickle", "rb")
-            self.e2dbpedia = pickle.load(f)
-            print('- Entities mapped with DBPedia:', len(self.e2dbpedia))
-            f.close()
-        p_dbpedia.start()
-
-        if os.path.exists("../../resources/e2wikidata.pickle"):
-            f = open("../../resources/e2wikidata.pickle", "rb")
-            self.e2wikidata = pickle.load(f)
-            print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
-            f.close()
-        p_wikidata.start()
+        with self.lock:
+            if os.path.exists("../../resources/e2wikidata.pickle"):
+                f = open("../../resources/e2wikidata.pickle", "rb")
+                self.e2wikidata = pickle.load(f)
+                print('- Entities mapped with e2wikidata:', len(self.e2wikidata))
+                f.close()
+        entities_to_explore = list(set(self.entities) - set(self.e2wikidata.keys()))
+        chunk_size = int(len(entities_to_explore) / 50)
+        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                        range(0, len(list(entities_to_explore)), chunk_size)]
+        threads_wiki = []
+        for chunk in list_chunked:
+            threads_wiki.append(Thread(target=self.linkThroughWikidata, args=(chunk,)))
+        for th in threads_wiki:
+            th.start()
 
         try:
-            p_cso.join()
-        except:
-            pass
-        try:
-            p_wikidata.join()
-        except:
-            pass
-        try:
-            p_dbpedia.join()
+            for th in threads_cso:
+                th.join()
+            for th in threads_dbpedia:
+                th.join()
+            for th in threads_wiki:
+                th.join()
         except:
             pass
 

@@ -77,7 +77,8 @@ class EntitiesMapper:
                     if entity in self.entities:
                         self.e2cso[entity] = o
                 with self.lock_cso:
-                    if len(self.e2cso) % 100 == 0:
+                    print('[{}]\t >> Mapped: {}'.format(name, len(self.e2cso)))
+                    if (len(self.e2cso.keys()) % 100) == 0:
                         print('[{}]\t >> CSO Processed'.format(name), len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
@@ -167,7 +168,8 @@ class EntitiesMapper:
 
                 c += 1
                 with self.lock_wiki:
-                    if len(self.e2wikidata) % 100 == 0:
+                    print('[{}]\t >> Mapped: {}'.format(name, len(self.e2wikidata)))
+                    if (len(self.e2wikidata.keys()) % 100) == 0:
                         print('[{}]\t >> Wikidata Processed'.format(name), len(self.e2wikidata),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
@@ -268,7 +270,8 @@ class EntitiesMapper:
 
                 c += 1
                 with self.lock_dbpedia:
-                    if len(self.e2dbpedia) % 100 == 0:
+                    print('[{}]\t >> Mapped: {}'.format(name, len(self.e2dbpedia)))
+                    if (len(self.e2dbpedia.keys()) % 100) == 0:
                         print('[{}] \t>> DBpedia Processed'.format(name), len(self.e2dbpedia), 'entities in',
                               (time.time() - timepoint),
                               'secs')

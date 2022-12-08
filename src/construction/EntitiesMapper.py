@@ -182,10 +182,10 @@ class EntitiesMapper:
                 print(err)
                 # print('HTTPError: {}'.format(ex.code))
                 print(err.headers)
-                print('sleeping...')
+                print('[{}] sleeping...'.format(name))
                 time.sleep(60)
             except Exception as ex:
-                print(ex)
+                print("[{}] {}".format(name, ex))
         with self.lock_wiki:
             print('[{}] Saving...'.format(name))
             pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
@@ -262,10 +262,10 @@ class EntitiesMapper:
                                     break
 
                 except urllib.error.HTTPError as e:
-                    print('HTTPError: {}'.format(e.code), 'sleeping...')
+                    print('[{}] HTTPError: {}'.format(name, e.code), 'sleeping...')
                     time.sleep(60)
                 except:
-                    print('E:', e)
+                    print('[{}] E:'.format(name), e)
                     pass
 
                 c += 1
@@ -307,7 +307,7 @@ class EntitiesMapper:
                 print('- Entities mapped with CSO:', len(self.e2cso))
 
         entities_to_explore = list(set(self.entities).difference(set(self.e2cso.keys())))
-        chunk_size = int(len(entities_to_explore) / 50)
+        chunk_size = int(len(entities_to_explore) / 1)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_cso = []

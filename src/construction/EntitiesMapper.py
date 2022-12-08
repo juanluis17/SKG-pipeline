@@ -41,14 +41,14 @@ class EntitiesMapper:
         self.lock_dbpedia = RLock()
         self.lock_wiki = RLock()
 
-    def linkThroughCSO(self, entities_to_explore):
-        print('- \t >> Mapping with cso started')
+    def linkThroughCSO(self, name, entities_to_explore):
+        print('[{}] >> Mapping with cso started'.format(name))
         timepoint = time.time()
         entities_to_explore_subset = entities_to_explore
         if len(entities_to_explore_subset) <= 0:
             return
 
-        print('- \t >> Entities to be linked to cso: {}'.format(len(entities_to_explore_subset)))
+        print('[{}]\t >> Entities to be linked to cso: {}'.format(name, len(entities_to_explore_subset)))
         cso = rdflib.Graph()
 
         with open(self.csoResourcePath, 'r', encoding='utf-8') as csv_file:
@@ -59,6 +59,7 @@ class EntitiesMapper:
                 o = o[1:-1]
 
                 entity = s.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
+                print('[{}]\t >> Processing entity: {}'.format(name, entity))
                 if entity in entities_to_explore_subset:
                     with self.lock_cso:
                         self.e2cso[entity] = s
@@ -71,21 +72,22 @@ class EntitiesMapper:
                                 self.e2dbpedia[entity] = o
 
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
+                print('[{}]\t >> Processing entity: {}'.format(name, entity))
                 with self.lock_cso:
                     if entity in self.entities:
                         self.e2cso[entity] = o
                 with self.lock_cso:
                     if len(self.e2cso) % 100 == 0:
-                        print('\t >> CSO Processed', len(self.e2cso),
+                        print('[{}]\t >> CSO Processed'.format(name), len(self.e2cso),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
         with self.lock_cso:
-            print('> Saving...')
+            print('[{}] > Saving...'.format(name))
             pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
-            print('- \t >> Mapped to CSO:', len(self.e2cso))
+            print('[{}] >> Mapped to CSO:'.format(name), len(self.e2cso))
 
-    def linkThroughWikidata(self, entities_to_explore):
-        print('- \t >> Mapping with wikidata started')
+    def linkThroughWikidata(self, name, entities_to_explore):
+        print('[{}] >> Mapping with wikidata started'.format(name))
         timepoint = time.time()
         # sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
         entities_to_explore_subset = entities_to_explore
@@ -96,11 +98,11 @@ class EntitiesMapper:
         entities_to_explore = sorted(entities_to_explore_subset, key=lambda x: len(x), reverse=True)
         # print('sorted')
         c = 0
-        print('- \t >> Entities to be linked to wikidata:', len(entities_to_explore))
+        print('[{}]\t >> Entities to be linked to wikidata: {}'.format(name, len(entities_to_explore)))
 
         while c < len(entities_to_explore):
             e = entities_to_explore[c]
-
+            print('[{}]\t >> Processing entity: {}'.format(name, e))
             query = """
 					SELECT DISTINCT ?entity ?altLabel
 					WHERE{
@@ -166,7 +168,7 @@ class EntitiesMapper:
                 c += 1
                 with self.lock_wiki:
                     if len(self.e2wikidata) % 100 == 0:
-                        print('\t >> Wikidata Processed', len(self.e2wikidata),
+                        print('[{}]\t >> Wikidata Processed'.format(name), len(self.e2wikidata),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))
                         pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
             # print('- \t >> Saving', len(self.e2wikidata), 'mappings')
@@ -183,9 +185,9 @@ class EntitiesMapper:
             except Exception as ex:
                 print(ex)
         with self.lock_wiki:
-            print('> Saving...')
+            print('[{}] Saving...'.format(name))
             pickle.dump(self.e2wikidata, open("../../resources/e2wikidata.pickle", "wb+"))
-            print('> Mapped to Wikidata:', len(self.e2wikidata))
+            print('[{}] Mapped to Wikidata:'.format(name), len(self.e2wikidata))
 
     def findNeiighbors(self):
 
@@ -216,17 +218,18 @@ class EntitiesMapper:
                 self.g.add_edge(self.e2id[s], self.e2id[o])
         '''
 
-    def linkThroughDBpediaSpotLight(self, entities_to_explore):
-        print('- \t >> Mapping with dbpedia started')
+    def linkThroughDBpediaSpotLight(self, name, entities_to_explore):
+        print('[{}] >> Mapping with dbpedia started'.format(name))
         entities_to_explore_subset = entities_to_explore
         if len(entities_to_explore_subset) <= 0:
             return
-        print('- \t >> Entities to be linked to dbpedia:', len(entities_to_explore_subset))
+        print('[{}]\t >> Entities to be linked to dbpedia: {}'.format(name, len(entities_to_explore_subset)))
         self.findNeiighbors()
 
         c = 0
         timepoint = time.time()
         for e in entities_to_explore_subset:
+            print('[{}]\t >> Processing entity: {}'.format(name, e))
             with self.lock_dbpedia:
                 bool_cond = e not in self.e2dbpedia
             if bool_cond:
@@ -266,13 +269,14 @@ class EntitiesMapper:
                 c += 1
                 with self.lock_dbpedia:
                     if len(self.e2dbpedia) % 100 == 0:
-                        print('- \t>> DBpedia Processed', len(self.e2dbpedia), 'entities in', (time.time() - timepoint),
+                        print('[{}] \t>> DBpedia Processed'.format(name), len(self.e2dbpedia), 'entities in',
+                              (time.time() - timepoint),
                               'secs')
                         pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
         with self.lock_dbpedia:
-            print('> Saving...')
+            print('[{}] > Saving...'.format(name))
             pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
-            print('- \t >> Mapped to DBpedia:', len(self.e2dbpedia))
+            print('[{}] >> Mapped to DBpedia:'.format(name), len(self.e2dbpedia))
 
     '''def save(self):
 
@@ -304,8 +308,8 @@ class EntitiesMapper:
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_cso = []
-        for chunk in list_chunked:
-            threads_cso.append(Thread(target=self.linkThroughCSO, args=(chunk,)))
+        for i, chunk in enumerate(list_chunked):
+            threads_cso.append(Thread(target=self.linkThroughCSO, args=("cso_{}".format(i), chunk,)))
         for th in threads_cso:
             th.start()
 
@@ -318,8 +322,9 @@ class EntitiesMapper:
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_dbpedia = []
-        for chunk in list_chunked:
-            threads_dbpedia.append(Thread(target=self.linkThroughDBpediaSpotLight, args=(chunk,)))
+        for i, chunk in enumerate(list_chunked):
+            threads_dbpedia.append(
+                Thread(target=self.linkThroughDBpediaSpotLight, args=("DBpedia_{}".format(i), chunk,)))
         for th in threads_dbpedia:
             th.start()
 
@@ -332,8 +337,8 @@ class EntitiesMapper:
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []
-        for chunk in list_chunked:
-            threads_wiki.append(Thread(target=self.linkThroughWikidata, args=(chunk,)))
+        for i, chunk in enumerate(list_chunked):
+            threads_wiki.append(Thread(target=self.linkThroughWikidata, args=("wiki_{}".format(i), chunk,)))
         for th in threads_wiki:
             th.start()
 

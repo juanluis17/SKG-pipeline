@@ -355,7 +355,7 @@ class EntitiesMapper:
                 print('- Entities processed with DBPedia:', len(self.e2dbpedia_processed))
         diff_1 = set(self.entities).difference(set(self.e2dbpedia.keys()))
         entities_to_explore = list(diff_1.difference(self.e2dbpedia_processed))
-        chunk_size = int(len(entities_to_explore) / 30)
+        chunk_size = int(len(entities_to_explore) / 100)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_dbpedia = []
@@ -374,7 +374,7 @@ class EntitiesMapper:
                 print('- Entities processed with e2wikidata:', len(self.e2wikidata_processed))
         diff_1 = set(self.entities).difference(set(self.e2wikidata.keys()))
         entities_to_explore = list(diff_1.difference(self.e2wikidata_processed))
-        chunk_size = int(len(entities_to_explore) / 10)
+        chunk_size = int(len(entities_to_explore) / 50)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []

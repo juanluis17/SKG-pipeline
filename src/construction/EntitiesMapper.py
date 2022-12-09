@@ -64,27 +64,33 @@ class EntitiesMapper:
                 o = o[1:-1]
 
                 entity = s.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
-                print('[{}]\t >> Processing entity: {}'.format(name, entity))
                 with self.lock_cso:
-                    self.e2cso_processed.add(entity)
-                if entity in entities_to_explore_subset:
+                    bool_cond = entity not in self.e2cso_processed
+                if bool_cond:
+                    print('[{}]\t >> Processing entity: {}'.format(name, entity))
                     with self.lock_cso:
-                        self.e2cso[entity] = s
-                    if p == 'http://www.w3.org/2002/07/owl#sameAs':
-                        with self.lock_wiki:
-                            if 'wikidata' in o:
-                                self.e2wikidata[entity] = o
-                        with self.lock_dbpedia:
-                            if 'dbpedia' in o:
-                                self.e2dbpedia[entity] = o
+                        self.e2cso_processed.add(entity)
+                    if entity in entities_to_explore_subset:
+                        with self.lock_cso:
+                            self.e2cso[entity] = s
+                        if p == 'http://www.w3.org/2002/07/owl#sameAs':
+                            with self.lock_wiki:
+                                if 'wikidata' in o:
+                                    self.e2wikidata[entity] = o
+                            with self.lock_dbpedia:
+                                if 'dbpedia' in o:
+                                    self.e2dbpedia[entity] = o
 
                 entity = o.replace('https://cso.kmi.open.ac.uk/topics/', '').replace('_', ' ')
-                print('[{}]\t >> Processing entity: {}'.format(name, entity))
                 with self.lock_cso:
-                    self.e2cso_processed.add(entity)
-                with self.lock_cso:
-                    if entity in self.entities:
-                        self.e2cso[entity] = o
+                    bool_cond = entity not in self.e2cso_processed
+                if bool_cond:
+                    print('[{}]\t >> Processing entity: {}'.format(name, entity))
+                    with self.lock_cso:
+                        self.e2cso_processed.add(entity)
+                    with self.lock_cso:
+                        if entity in self.entities:
+                            self.e2cso[entity] = o
                 with self.lock_cso:
                     print('[{}]\t >> Mapped: {}'.format(name, len(self.e2cso)))
                     print('[{}]\t >> Processed: {}'.format(name, len(self.e2cso_processed)))
@@ -371,7 +377,7 @@ class EntitiesMapper:
                 print('- Entities processed with e2wikidata:', len(self.e2wikidata_processed))
         diff_1 = set(self.entities).difference(set(self.e2wikidata.keys()))
         entities_to_explore = list(diff_1.difference(self.e2wikidata_processed))
-        chunk_size = int(len(entities_to_explore) / 25)
+        chunk_size = int(len(entities_to_explore) / 50)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []

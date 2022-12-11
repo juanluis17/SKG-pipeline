@@ -343,7 +343,7 @@ class EntitiesMapper:
         union_1 = set(self.e2cso_processed).union(set(self.e2cso.keys()))
         entities_to_explore = list(set(self.entities).difference(union_1))
         print('- Entities to explore with CSO:', len(entities_to_explore))
-        chunk_size = int(len(entities_to_explore) / 1)
+        chunk_size = int(len(entities_to_explore) / 1) if len(entities_to_explore) != 0 else 1
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_cso = []
@@ -359,9 +359,10 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2dbpedia_processed.pickle"):
                 self.e2dbpedia_processed = pickle.load(open("../../resources/e2dbpedia_processed.pickle", "rb"))
                 print('- Entities processed with DBPedia:', len(self.e2dbpedia_processed))
-        diff_1 = set(self.entities).difference(set(self.e2dbpedia.keys()))
-        entities_to_explore = list(diff_1.difference(self.e2dbpedia_processed))
-        chunk_size = int(len(entities_to_explore) / 100)
+        union_1 = set(self.e2dbpedia_processed).union(set(self.e2dbpedia.keys()))
+        entities_to_explore = list(set(self.entities).difference(union_1))
+        print('- Entities to explore with DBPedia:', len(entities_to_explore))
+        chunk_size = int(len(entities_to_explore) / 100) if len(entities_to_explore) != 0 else 1
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_dbpedia = []
@@ -378,9 +379,10 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2wikidata_processed.pickle"):
                 self.e2wikidata_processed = pickle.load(open("../../resources/e2wikidata_processed.pickle", "rb"))
                 print('- Entities processed with e2wikidata:', len(self.e2wikidata_processed))
-        diff_1 = set(self.entities).difference(set(self.e2wikidata.keys()))
-        entities_to_explore = list(diff_1.difference(self.e2wikidata_processed))
-        chunk_size = int(len(entities_to_explore) / 50)
+        union_1 = set(self.e2wikidata_processed).union(set(self.e2wikidata.keys()))
+        entities_to_explore = list(set(self.entities).difference(union_1))
+        print('- Entities to explore with e2wikidata:', len(entities_to_explore))
+        chunk_size = int(len(entities_to_explore) / 50) if len(entities_to_explore) != 0 else 1
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []

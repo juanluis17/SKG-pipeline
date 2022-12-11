@@ -102,6 +102,8 @@ class EntitiesMapper:
                         pickle.dump(self.e2cso_processed, open("../../resources/e2cso_processed.pickle", "wb+"))
         with self.lock_cso:
             print('[{}] > Saving...'.format(name))
+            for e in entities_to_explore_subset:
+                self.e2cso_processed.add(e)
             pickle.dump(self.e2cso, open("../../resources/e2cso.pickle", "wb+"))
             pickle.dump(self.e2cso_processed, open("../../resources/e2cso_processed.pickle", "wb+"))
             print('[{}] >> Mapped to CSO:'.format(name), len(self.e2cso))

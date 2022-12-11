@@ -196,7 +196,8 @@ class EntitiesMapper:
                 with self.lock_wiki:
                     print('[{}]\t >> Mapped: {}'.format(name, len(self.e2wikidata)))
                     print('[{}]\t >> Processed: {}'.format(name, len(self.e2wikidata_processed)))
-                    if ((len(self.e2wikidata.keys()) % 50) == 0) and self.e2wikidata_prev_len != len(
+                    if ((len(self.e2wikidata.keys()) % 50) == 0 or (
+                            len(self.e2wikidata) % 50) == 0) and self.e2wikidata_prev_len != len(
                             self.e2wikidata.keys()):
                         print('[{}]\t >> Wikidata Processed'.format(name), len(self.e2wikidata),
                               'entities in {:.2f} secs.'.format(time.time() - timepoint))

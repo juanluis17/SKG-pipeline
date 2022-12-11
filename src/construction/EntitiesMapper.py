@@ -345,7 +345,7 @@ class EntitiesMapper:
         print('- Entities to explore with CSO:', len(entities_to_explore))
         threads_cso = []
         if len(entities_to_explore) != 0:
-            chunk_size = int(len(entities_to_explore) / 1)
+            chunk_size = int(len(entities_to_explore) / 1) + 1
             list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                             range(0, len(list(entities_to_explore)), chunk_size)]
             for i, chunk in enumerate(list_chunked):
@@ -365,7 +365,7 @@ class EntitiesMapper:
         print('- Entities to explore with DBPedia:', len(entities_to_explore))
         threads_dbpedia = []
         if len(entities_to_explore) != 0:
-            chunk_size = int(len(entities_to_explore) / 100)
+            chunk_size = int(len(entities_to_explore) / 100) + 1
             list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                             range(0, len(list(entities_to_explore)), chunk_size)]
             for i, chunk in enumerate(list_chunked):
@@ -386,7 +386,7 @@ class EntitiesMapper:
         print('- Entities to explore with e2wikidata:', len(entities_to_explore))
         threads_wiki = []
         if len(entities_to_explore) != 0:
-            chunk_size = int(len(entities_to_explore) / 50)
+            chunk_size = int(len(entities_to_explore) / 50) + 1
             list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                             range(0, len(list(entities_to_explore)), chunk_size)]
             for i, chunk in enumerate(list_chunked):

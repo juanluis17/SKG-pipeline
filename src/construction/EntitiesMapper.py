@@ -343,12 +343,13 @@ class EntitiesMapper:
         union_1 = set(self.e2cso_processed).union(set(self.e2cso.keys()))
         entities_to_explore = list(set(self.entities).difference(union_1))
         print('- Entities to explore with CSO:', len(entities_to_explore))
-        chunk_size = int(len(entities_to_explore) / 1) if len(entities_to_explore) != 0 else 1
-        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
-                        range(0, len(list(entities_to_explore)), chunk_size)]
         threads_cso = []
-        for i, chunk in enumerate(list_chunked):
-            threads_cso.append(Thread(target=self.linkThroughCSO, args=("cso_{}".format(i), chunk,)))
+        if len(entities_to_explore) != 0:
+            chunk_size = int(len(entities_to_explore) / 1)
+            list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                            range(0, len(list(entities_to_explore)), chunk_size)]
+            for i, chunk in enumerate(list_chunked):
+                threads_cso.append(Thread(target=self.linkThroughCSO, args=("cso_{}".format(i), chunk,)))
         for th in threads_cso:
             th.start()
 
@@ -362,13 +363,14 @@ class EntitiesMapper:
         union_1 = set(self.e2dbpedia_processed).union(set(self.e2dbpedia.keys()))
         entities_to_explore = list(set(self.entities).difference(union_1))
         print('- Entities to explore with DBPedia:', len(entities_to_explore))
-        chunk_size = int(len(entities_to_explore) / 100) if len(entities_to_explore) != 0 else 1
-        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
-                        range(0, len(list(entities_to_explore)), chunk_size)]
         threads_dbpedia = []
-        for i, chunk in enumerate(list_chunked):
-            threads_dbpedia.append(
-                Thread(target=self.linkThroughDBpediaSpotLight, args=("DBpedia_{}".format(i), chunk,)))
+        if len(entities_to_explore) != 0:
+            chunk_size = int(len(entities_to_explore) / 100)
+            list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                            range(0, len(list(entities_to_explore)), chunk_size)]
+            for i, chunk in enumerate(list_chunked):
+                threads_dbpedia.append(
+                    Thread(target=self.linkThroughDBpediaSpotLight, args=("DBpedia_{}".format(i), chunk,)))
         for th in threads_dbpedia:
             th.start()
 
@@ -382,12 +384,13 @@ class EntitiesMapper:
         union_1 = set(self.e2wikidata_processed).union(set(self.e2wikidata.keys()))
         entities_to_explore = list(set(self.entities).difference(union_1))
         print('- Entities to explore with e2wikidata:', len(entities_to_explore))
-        chunk_size = int(len(entities_to_explore) / 50) if len(entities_to_explore) != 0 else 1
-        list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
-                        range(0, len(list(entities_to_explore)), chunk_size)]
         threads_wiki = []
-        for i, chunk in enumerate(list_chunked):
-            threads_wiki.append(Thread(target=self.linkThroughWikidata, args=("wiki_{}".format(i), chunk,)))
+        if len(entities_to_explore) != 0:
+            chunk_size = int(len(entities_to_explore) / 50)
+            list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
+                            range(0, len(list(entities_to_explore)), chunk_size)]
+            for i, chunk in enumerate(list_chunked):
+                threads_wiki.append(Thread(target=self.linkThroughWikidata, args=("wiki_{}".format(i), chunk,)))
         for th in threads_wiki:
             th.start()
 

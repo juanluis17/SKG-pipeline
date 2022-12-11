@@ -338,8 +338,9 @@ class EntitiesMapper:
             if os.path.exists("../../resources/e2cso_processed.pickle"):
                 self.e2cso_processed = pickle.load(open("../../resources/e2cso_processed.pickle", "rb"))
                 print('- Entities processed with CSO:', len(self.e2cso_processed))
-        diff_1 = set(self.entities).difference(set(self.e2cso.keys()))
-        entities_to_explore = list(diff_1.difference(self.e2cso_processed))
+        union_1 = set(self.e2cso_processed).union(set(self.e2cso.keys()))
+        entities_to_explore = list(set(self.entities).difference(union_1))
+        print('- Entities to explore with CSO:', len(entities_to_explore))
         chunk_size = int(len(entities_to_explore) / 1)
         list_chunked = [list(entities_to_explore)[i:i + chunk_size] for i in
                         range(0, len(list(entities_to_explore)), chunk_size)]
@@ -393,8 +394,8 @@ class EntitiesMapper:
                 th.join()
             for th in threads_wiki:
                 th.join()
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     def run(self):
         print('\t>> Entities to be mapped:', len(self.entities))
@@ -426,6 +427,3 @@ if __name__ == '__main__':
                ]
     mapper = EntitiesMapper(entities, triples)
     mapper.run()
-
-
-

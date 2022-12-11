@@ -314,7 +314,7 @@ class EntitiesMapper:
                         pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))
                         print('[{}] \t>> DBpedia Processed'.format(name), len(self.e2dbpedia_processed))
                         pickle.dump(self.e2dbpedia_processed, open("../../resources/e2dbpedia_processed.pickle", "wb+"))
-                        self.e2wikidata_prev_len = len(self.e2dbpedia.keys())
+                        self.e2dbpedia_prev_len = len(self.e2dbpedia.keys())
         with self.lock_dbpedia:
             print('[{}] > Saving...'.format(name))
             pickle.dump(self.e2dbpedia, open("../../resources/e2dbpedia.pickle", "wb+"))

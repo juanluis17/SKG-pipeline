@@ -7,9 +7,9 @@ import argparse
 +-------------+--------+------------------------------------------------------+
 | Date        | Author | Description                                          |
 +=============+========+======================================================+
-|  24-May-2023 | JLGM   | - Processing of list of patent files						  |
+|  24-May-2023 | JLGM   | - Processing of list of patent files				  |
 +-------------+--------+------------------------------------------------------+
-@created_by: Juan-Luis García-Mendoza
+created_by: Juan-Luis García-Mendoza
 """
 
 

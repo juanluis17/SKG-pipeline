@@ -33,12 +33,14 @@ input_directory=../${data_output_dir} #../../../outputs/dygiepp_input/
 output_directory=${dygiepp_output} #../../../outputs/dygiepp_output/
 echo $input_directory
 echo $output_directory
+
 mkdir ${output_directory}
 
 for file in ${input_directory}*; do
   filename=$(basename ${file})
   echo '> dygiepp processing: '$filename
   if [ ! -e ${output_directory}/${filename} ]; then
-    allennlp predict pretrained/scierc.tar.gz $input_directory$filename --predictor dygie --include-package dygie --use-dataset-reader --output-file $output_directory$filename --cuda-device ${GPU}
+    allennlp predict pretrained/scierc.tar.gz $input_directory$filename --predictor dygie --include-package dygie --use-dataset-reader --output-file $output_directory$filename
+    #--cuda-device ${GPU}
   fi
 done

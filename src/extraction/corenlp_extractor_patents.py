@@ -1,5 +1,6 @@
 # command to run the stanford core nlp server
 # nohup java -mx8g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9050 -timeout 15000 >/dev/null 2>&1 &
+import time
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from stanfordcorenlp import StanfordCoreNLP
@@ -431,13 +432,14 @@ def extraction(filename):
                 fw.write('\n')
             except Exception as e:
                 print(e)
+                time.sleep(30)
     fw.flush()
     fw.close()
 
 
 if __name__ == '__main__':
     files_to_parse = [filename for filename in os.listdir(dataset_dump_dir)]
-    pool = mp.Pool(len(files_to_parse))
+    pool = mp.Pool(1)
     result = pool.map(extraction, files_to_parse)
     # extraction(files_to_parse[0])
     # detectAcronyms([('machine learning (ML)', 'A'), ('danilo dessi', 'B'), ('natural language processing (NLP)', 'C'), ('Natural Language Processing (NLP)', 'C')])

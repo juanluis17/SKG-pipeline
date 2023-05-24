@@ -8,7 +8,8 @@ source ~/anaconda3/etc/profile.d/conda.sh
 conda activate dygiepp
 conda install -c conda-forge networkx
 conda install -c conda-forge stanfordcorenlp
-#pip install stanfordcorenlp networkx
+pip install cso-classifier
+
 
 if  [ ! -d stanford-corenlp-4.5.1 ]; then
   wget https://downloads.cs.stanford.edu/nlp/software/stanford-corenlp-4.5.1.zip

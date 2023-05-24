@@ -9,8 +9,8 @@ GPU=$4
 #python data_preparation_dygiepp.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 python data_preparation_patents.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 
-source ~/anaconda3/etc/profile.d/conda.sh
-conda deactivate
+#source ~/anaconda3/etc/profile.d/conda.sh
+#conda deactivate
 
 
 #git clone https://github.com/dwadden/dygiepp.git

@@ -6,9 +6,6 @@ dygiepp_output=$3
 GPU=$4
 
 source ~/anaconda3/etc/profile.d/conda.sh
-conda create --name pipeline
-conda activate pipeline
-pip install -r ../../requirements.txt
 #python data_preparation_dygiepp.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 python data_preparation_patents.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 conda deactivate

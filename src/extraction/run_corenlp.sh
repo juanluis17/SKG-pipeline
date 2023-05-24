@@ -6,9 +6,9 @@ output_dir=$3
 
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate dygiepp
-conda install -c conda-forge networkx
-conda install -c conda-forge stanfordcorenlp
-pip install cso-classifier
+#conda install -c conda-forge networkx
+#conda install -c conda-forge stanfordcorenlp
+#pip install cso-classifier
 
 
 if  [ ! -d stanford-corenlp-4.5.1 ]; then

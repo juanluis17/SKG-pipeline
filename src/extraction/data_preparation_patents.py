@@ -10,8 +10,8 @@ import argparse
 |  24-May-2023 | JLGM   | - Processing of list of patent files				  |
 +-------------+--------+------------------------------------------------------+
 created_by: Juan-Luis García-Mendoza
-"""
 
+"""
 
 def get_args():
     parser = argparse.ArgumentParser(description="")

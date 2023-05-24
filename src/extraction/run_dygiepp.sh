@@ -5,9 +5,11 @@ data_output_dir=$2
 dygiepp_output=$3
 GPU=$4
 
-source ~/anaconda3/etc/profile.d/conda.sh
+
 #python data_preparation_dygiepp.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 python data_preparation_patents.py --data_path ${data_path} --data_output_dir ${data_output_dir}
+
+source ~/anaconda3/etc/profile.d/conda.sh
 conda deactivate
 
 

@@ -38,7 +38,7 @@ def main():
     print('> files_to_parse:', len(files_to_parse))
 
     for file in sorted(files_to_parse):
-        fw = open(data_output_dir + file, 'w+')
+        fw = open(data_output_dir + file.split(".txt")[0]+".json", 'w+')
         with open(data_path + file, 'r', encoding='utf-8') as f:
             print('> processing:', file)
             id = file.split(".txt")[0]

@@ -368,7 +368,7 @@ def extraction(filename):
     print('> processing: ' + filename)
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
-    fw = open(output_dir + filename, 'w+')
+    fw = open(output_dir + filename.split(".txt")[0] + ".json", 'w+')
 
     print('> processing: ' + filename + ' metadata reading')
     paper2metadata = {}

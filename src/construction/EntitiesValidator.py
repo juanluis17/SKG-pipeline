@@ -89,7 +89,7 @@ class EntitiesValidator:
 
 
 if __name__ == '__main__':
-	ev = EntitiesValidator(['computer science', 'danilo', 'svm', 'machine learning', 'fghjjjj', 'hello', 'method', 'methods', 'test', 'neural networks', 'a320', '320', '320a'], '../dataset/AI_whitelisted_parsed/')
+	ev = EntitiesValidator(['computer science', 'danilo', 'svm', 'machine learning', 'fghjjjj', 'hello', 'method', 'methods', 'test', 'neural networks', 'a320', '320', '320a'])#, '../dataset/AI_whitelisted_parsed/')
 	ev.run()
 	print(ev.get())
 

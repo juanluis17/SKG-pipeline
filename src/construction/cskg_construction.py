@@ -8,8 +8,10 @@ import json
 import os
 import gc
 import nltk
+
 nltk.download('wordnet')
 nltk.download('wordnet_ic')
+
 
 class TriplesGenerator:
     def __init__(self, data_extracted_dir):
@@ -213,6 +215,7 @@ class TriplesGenerator:
             ec = EntitiesCleaner(set([e for (e, e_type) in self.entities2files.keys()]))
             ec.run()
             cleaner_map = ec.get()
+            self.createCheckpoint('entity2cleaned_entity', cleaner_map)
             self.updateThroughCleanerMap(cleaner_map)
             del cleaner_map
             gc.collect()

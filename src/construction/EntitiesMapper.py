@@ -455,3 +455,4 @@ if __name__ == '__main__':
                ]
     mapper = EntitiesMapper(entities, triples)
     mapper.run()
+    print()

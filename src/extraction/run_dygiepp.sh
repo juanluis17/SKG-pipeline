@@ -7,7 +7,8 @@ GPU=$4
 
 source ~/anaconda3/etc/profile.d/conda.sh
 #python data_preparation_dygiepp.py --data_path ${data_path} --data_output_dir ${data_output_dir}
-python data_preparation_patents.py --data_path ${data_path} --data_output_dir ${data_output_dir}
+#python data_preparation_patents.py --data_path ${data_path} --data_output_dir ${data_output_dir}
+python data_preparation_vijini.py --data_path ${data_path} --data_output_dir ${data_output_dir}
 
 git clone https://github.com/dwadden/dygiepp.git
 cd dygiepp

@@ -387,6 +387,8 @@ def extraction(filename):
     paper2dygiepp = {}
     for row in f:
         drow = json.loads(row)
+        if 'predicted_ner' not in drow:
+            continue
         paper2dygiepp[drow['doc_key']] = getDygieppResults(drow)
         paper2metadata[drow['doc_key']]['sentences'] = drow['sentences']
         paper2metadata[drow['doc_key']]['dataset'] = drow['dataset']
@@ -443,7 +445,8 @@ def extraction(filename):
 
 if __name__ == '__main__':
     files_to_parse = [filename for filename in os.listdir(dataset_dump_dir)]
-    pool = mp.Pool(1)
+    # pool = mp.Pool(1)
+    pool = mp.Pool(len(files_to_parse))
     result = pool.map(extraction, files_to_parse)
     # extraction(files_to_parse[0])
     # detectAcronyms([('machine learning (ML)', 'A'), ('danilo dessi', 'B'), ('natural language processing (NLP)', 'C'), ('Natural Language Processing (NLP)', 'C')])

@@ -12,18 +12,16 @@ pip install cso-classifier
 pip install spacy
 python -m spacy download en_core_web_sm
 
-
-if  [ ! -d stanford-corenlp-4.5.1 ]; then
+if [ ! -d stanford-corenlp-4.5.1 ]; then
   wget https://downloads.cs.stanford.edu/nlp/software/stanford-corenlp-4.5.1.zip
   unzip stanford-corenlp-4.5.1.zip
   rm stanford-corenlp-4.5.1.zip
 fi
 
 cd stanford-corenlp-4.5.1
-java -mx8g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9050 -timeout 15000 -threads 4 &
+java -mx8g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9050 -timeout 15000 -threads 8 &
 corenlp_process_pid=$!
 cd ..
 echo $corenlp_process_pid
 python corenlp_extractor_vijini.py --dataset_dump_dir ${dataset_dump_dir} --dygiepp_output_dump_dir ${dygiepp_output_dump_dir} --output_dir ${output_dir}
 kill -9 $corenlp_process_pid
-

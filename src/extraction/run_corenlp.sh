@@ -9,6 +9,8 @@ conda activate dygiepp
 pip install networkx
 pip install stanfordcorenlp
 pip install cso-classifier
+pip install spacy
+python -m spacy download en_core_web_sm
 
 
 if  [ ! -d stanford-corenlp-4.5.1 ]; then

@@ -23,5 +23,5 @@ java -mx8g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9050 -t
 corenlp_process_pid=$!
 cd ..
 echo $corenlp_process_pid
-python corenlp_extractor_vijini.py --dataset_dump_dir ${dataset_dump_dir} --dygiepp_output_dump_dir ${dygiepp_output_dump_dir} --output_dir ${output_dir}
+python corenlp_extractor --dataset_dump_dir ${dataset_dump_dir} --dygiepp_output_dump_dir ${dygiepp_output_dump_dir} --output_dir ${output_dir}
 kill -9 $corenlp_process_pid

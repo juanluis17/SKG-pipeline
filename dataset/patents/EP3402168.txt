@@ -1,0 +1,39 @@
+EP3402168
+
+H04L12/4645; H04L12/56; H04L41/0816; H04L43/08; H04L45/74; H04L47/10; H04L47/24; H04L67/141; H04L69/325; H04L12/2854; H04L45/64
+
+1. A communication system (20), comprising:
+multiple Point-of-Presence (POP) interfaces (40), which are distributed in a Wide-Area Network (WAN - 36) and are configured to communicate with at least a client (28) and a server (32) connected to the WAN; and
+one or more processors (44), which are coupled to the POP interfaces and are configured to:
+assign respective Internet Protocol (IP) addresses to the client and to the server, including embedding state information in the assigned IP addresses, the embedded state information comprising a routing path specified as a list of the POP interfaces to be traversed by the traffic between the client and the server; and
+route traffic over the WAN between the client and the server, in a stateless manner, based on the state information embedded in the IP addresses.
+
+2. The system according to claim 1, wherein the processors (44) are configured to route the traffic based only on the embedded routing path.
+
+3. The system according to any of claims 1 - 2, wherein the processors (44) are configured to embed, as part of the state information, a definition of a policy related to the server (32) or to the client (28).
+
+4. The system according to claim 3, wherein the processors are configured to enforce the policy, in a stateless manner, based on the embedded definition.
+
+5. The system according to any of claims 1 - 2, wherein the processors are configured to embed at least part of the state information upon initially provisioning the client (28).
+
+6. The system according to any of claims 1 - 2, wherein the processors are configured to embed at least part of the state information in response to receiving a request from the client to communicate with the server (32).
+
+7. The system according to claim 6, wherein the processors are configured to receive the request in a Domain Name System (DNS) request (66), and to respond to the DNS request by (i) assigning to the server (32) an IP address having the at least part of the state information embedded therein, and (ii) sending to the client a DNS response comprising the IP address.
+
+8. The system according to any of claims 1-- 2, wherein the processors are configured to embed a unique identifier of the client (28) in an IP address assigned to the client (28).
+
+9. The system according to any of claims 1 - 2, wherein the assigned IP addresses comprise IP version 6 (IPv6) addresses.
+
+10. A communication method, comprising:
+assigning respective Internet Protocol (IP) addresses to a client (28) and to a server (32) that are connected to a Wide-Area Network (WAN - 36), including embedding state information in the assigned IP addresses, the embedded the state information comprising a routing path specified as a list of the POP interfaces to be traversed by the traffic between the client and the server; and
+routing traffic over the WAN between the client and the server in a stateless manner, using multiple Point-of-Presence (POP) interfaces (40) distributed in the WAN, based on the state information embedded in the IP addresses.
+
+11. The method according to claim 10, wherein embedding the state information comprises embedding a definition of a policy related to the server (32) or to the client (28).
+
+12. The method according to any of claims 10 - 11, wherein embedding the state information comprises embedding at least part of the state information in response to receiving a request from the client to communicate with the server (32).
+
+13. The method according to claim 12, and comprising receiving (66) the request in a Domain Name System (DNS) request, wherein assigning the IP addresses comprises responding to the DNS request by (i) assigning to the server (32) an IP address having the at least part of the state information embedded therein, and (ii) sending to the client a DNS response comprising the IP address.
+
+14. The method according to any of claims 10 - 11, further comprising embedding a unique identifier of the client (28) in an IP address assigned to the client.
+
+15. The method according to any of claims 10 - 11, wherein the assigned IP addresses comprise IP version 6 (IPv6) addresses. 

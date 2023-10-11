@@ -1,0 +1,55 @@
+EP3756346
+
+H04N19/117; H04N19/132; H04N19/146; H04N19/176; H04N19/1887; H04N19/42; H04N19/82; H03H17/04
+
+1. An apparatus for filtering a set of samples (115; 215) of an image using a loop filter (120; 220) with adaptive multiplier coefficients represented by integer numbers, the apparatus comprising processing circuitry which is configured to
+determine the value of each multiplier coefficient of the loop filter (120; 220) so as to be within a set of allowed values so that a binary representation of the absolute value of each multiplier coefficient with a predetermined number L of binary digits includes at least one "zero", wherein the binary representation is from the most significant bit to the least significant bit in order, and
+filter the set of samples (115; 215) of an image with the loop filter (120; 220);
+wherein the binary representation of the absolute value of each multiplier coefficient includes at most two "ones".
+
+2. An apparatus according to claim 1, wherein the highest absolute value of the set of allowed values is restricted to a predetermined maximum value Nmax.
+
+3. An apparatus according to claim 1 or 2, wherein the binary representation of the absolute value of each multiplier coefficient includes at most one "one".
+
+4. An apparatus according to any one of claims 1 to 3, wherein the set of samples of an image is a set of samples (115; 215) of a video image.
+
+5. An apparatus according to claim 4, wherein said apparatus is configured to individually adapt the multiplier coefficients for each picture and each pixel.
+
+6. A method for filtering a set of samples (115; 215) of an image using a loop filter (120; 220) with adaptive multiplier coefficients represented by integer numbers, the method comprising the steps of
+determining (S80; S92, S94) the value of each multiplier coefficient of the loop filter (120; 220) so as to be within a set of allowed values so that the binary representation of the absolute value of said multiplier coefficients with a predetermined number L of digits includes at least one "zero", wherein the binary representation is from the most significant bit to the least significant bit in order, and
+filtering (S82; S96) the set of samples (115; 215) of an image with the loop filter (120; 220);
+wherein the binary representation of the absolute value of each multiplier coefficient includes at most two "ones".
+
+7. An apparatus for encoding a current set of samples (103) of an image including a plurality of pixels, the apparatus comprising:
+an encoder with a decoder (110, 112, 114) for reconstructing the current set, and
+the apparatus according to any one of claims 1 to 5 for filtering the reconstructed set (115).
+
+8. An apparatus according to claim 7, further comprising processing circuitry which is configured to
+map the values of the multiplier coefficients to binary code words; and
+include the codewords into a bit stream (330) for being transmitted to a decoding apparatus (200).
+
+9. An apparatus according to claim 8, wherein the length of said codewords depends on the number of distinct multiplier coefficient values.
+
+10. An apparatus according to claim 8 or 9, wherein the processing circuitry is further configured to
+perform a prediction of the multiplier coefficients of the loop filter (120); and
+determine residual multiplier coefficients by comparing the actually determined values with the predicted values resulting from the prediction, wherein the mapping to binary codewords is applied to the residual multiplier coefficients.
+
+11. An apparatus according to claim 10, wherein the processing circuitry is further configured to generate prediction control information and to include the prediction control information into the bit stream (330).
+
+12. An apparatus for decoding a coded current set of samples (171) of an image including a plurality of pixels, the apparatus comprising:
+a decoder (204, 210, 212, 214) for reconstructing the current set, and
+the apparatus according to any one of claims 1 to 5 for filtering the reconstructed set (215).
+
+13. An apparatus according to claim 12, wherein said processing circuitry is further configured to obtain multiplier coefficients from binary codewords included in a received bit stream (330) by applying a mapping operation.
+
+14. An apparatus according to claim 13, wherein
+said obtained multiplier coefficients are residual multiplier coefficients representing a difference between the actual coefficient values and multiplier coefficients predicted according to a prediction scheme; and
+the processing circuitry is configured to determine the values of the multiplier coefficients of the filter (220) by reconstructing them from the obtained residual multiplier coefficients.
+
+15. An apparatus according to claim 14, wherein
+the prediction scheme is indicated by prediction control information further included in the received bit stream (330); and
+the processing circuitry is configured to further use the prediction control information in the reconstruction.
+
+16. An apparatus according to any one of claims 13 to 15, wherein the determination by the processing circuitry further includes
+performing a determination as to whether or not the determined value of each multiplier coefficient, obtained directly from the received bit stream (330) by the mapping operation or by reconstruction from the obtained residual multiplier coeffcients, are within the set of allowed values; and, if not,
+converting the determined value to a nearest value that is within the set of allowed values.

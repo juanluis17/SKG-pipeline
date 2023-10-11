@@ -1,0 +1,51 @@
+EP2630781
+
+H04M2201/14; H04M2201/38; H04M2203/357; H04M2203/404; H04M3/5158; H04M3/5183; H04M3/523; H04M3/58; H04M3/56; H04M2201/36; H04M3/51; H04M3/5191; H04M3/5235; H04M3/54; H04M2203/402
+
+1. A system (10) for maximizing efficiency of call transfer from being between a customer and a dialing agent, to being between the customer and a talker, the system comprising:
+a dialing agent computer (20) having a memory, and a processor configured by the memory to provide a connected notification that a customer that has been dialed has been connected via a call and therefore becomes a connected customer, wherein the dialing agent computer (20) is used by a dialing agent; the system (10) being characterised by:
+a talker computer (24) having a memory, and a processor configured by the memory to receive a first notification that enables the talker computer (24) to identify one or more customer record associated with one or more customer prior to or upon dialing of the one or more customer by the dialing agent and to receive a second notification that enables the talker computer (24) to identify a customer record associated with the customer that has been dialed after the customer has been connected to the dialing agent, wherein the talker computer (24) is used by a talker; and
+a configuration in a shared memory and/or a local memory in one or more dialing agent computer (20) and/or talker computer (24) and/or a central voice server (150) that are being synchronized among the local memory of the one or more dialing agent computer (20) and/or talker computer (24) and/or a central voice server (150), that when executed by one or more processor is configured to perform the steps of:
+transferring the first notification that enables the talker computer (24) to identify one or more customer record associated with the one or more customer prior to or upon the dialing agent dialing the one or more customer for purposes of identifying a customer record on the talker computer (24) in a first manner prior to the customer being connected to the dialing agent;
+receiving the connected notification from the dialing agent computer (20) confirming that the customer that has been dialed has been connected;
+an after the dialing agent computer (20) acknowledges connection to the customer, transferring the second notification that enables the talker computer (24) to identify the one or more customer record associated with the connected customer for purposes of identifying a customer record on the talker computer (24) in a second manner;
+wherein prior to or upon identifying the customer record on the talker computer (24) in a first manner, the talker computer (24) has stored therein data associated with the customer.
+
+2. The system of claim 1, wherein the shared memory comprises a central data server (100) having a memory and a processor.
+
+3. The system of claim 2, wherein the processor of the dialing agent computer (20) is further configured by the memory to perform the step of transferring a request to dial a customer to the central data server.
+
+4. The system of claim 1, wherein the system further comprises one or more talker computer (24) and one or more dialing agent computer (20).
+
+5. The system of claim 1, further comprising a central voice server (150) for providing voice communication capability between the dialing agent and the customer and between the talker and the customer.
+
+6. The system of claim 1, wherein the processor of the dialing agent computer (20) is further configured by the memory of the dialing agent computer (20) to identify a customer record prior to or upon being dialed.
+
+7. The system of claim 1, wherein the processor of the talker computer (24) is further configured by the memory of the talker computer (24) to identify a customer record prior to or upon being dialed in a first manner and to identify a customer record of a connected customer in a second manner so as to differentiate the customer record of a connected customer.
+
+8. The system of claim 1, wherein at least one of the customer that the first notification enables the talker computer (24) to identify is selected based on information, referred to herein as "prioritization information", located in one or more fields associated with the customer record, wherein the prioritization information is used to determine the order of the customer record for calling.
+
+9. The system of claim 1, wherein the talker computer (24) and/or the dialing agent computer (20) enables updating of one or more fields, referred to herein as "user update fields", of a customer record, wherein one or more user update fields is used to determine the customer record that the first notification enables the talker computer (24) to identify.
+
+10. The system of claim 8 and claim 9, wherein at least one of the user update fields is part of the fields containing the prioritization information.
+
+11. The system of claim 9, wherein at least one of the user update fields of the customer record is a when to call field that specifies whether to call the customer associated with the customer record during a specific time period or not to call during a specific time period, wherein the when to call field is used to select the customer record that the first notification enables the talker computer (24) to identify in the first manner, and wherein the information contained in the when to call field may be stored in multiple attributes of the customer record.
+
+12. The system of claim 1, wherein the system further comprises a computer, referred to herein as a third party call participant computer, used by a user, referred to herein as a third party call participant, of the system that participates in the call between the customer and the dialing agent or between the customer and the talker, having a memory, and a processor configured by the memory to provide a request participation notification that the third party call participant has requested to participate in the call between the customer and the dialing agent or between the customer and the talker, wherein the dialing agent or the talker that is on the call with the customer is referred to herein as a call attendant; and
+wherein the configuration in the shared memory and/or local memory in one or more dialing agent computer (20) and/or talker computer (24) and/or a central voice server (150) that are being synchronized among the local memory of the one or more dialing agent computer (20) and/or talker computer (24) and/or central voice server (150) is configured to further perform the steps of:
+receiving the request participation notification from the third party call participant computer that the third party call participant has requested to participate in the call between the customer and the call attendant; and
+after the third party call participant has requested to participate in the call between the customer and the call attendant, providing a participate notification that enables the third party call participant to participate in the call between the customer and the call attendant.
+
+13. The system of claim 12, wherein the third party call participant is connected to the call between the call attendant and the customer in one of the modes, comprising:
+a listen only mode that enables the third party call participant to only listen to both the call attendant and the customer,
+a listen and talk mode that enables the third party call participant to listen as well as talk to both the call attendant and the customer, and
+a whisper mode that enables the third party call participant to listen to both the call attendant and the customer, but talk to only the call attendant,
+wherein in the listen only mode the third party call participant may participate in the call with or without knowledge of the call attendant or the customer, wherein in the listen and talk mode the third party call participant, call attendant, and the customer all or some may have knowledge of presence of others in the call, and wherein in the whisper mode the third party call participant may participate in the call without knowledge of the customer.
+
+14. A method for maximizing efficiency of call transfer from being between a customer and a dialing agent, to being between the customer and a talker according to the system of any of claims 1-13, the method being characterised by the steps of:
+receiving by a talker a first notification that enables the identification in a first manner of one or more customer record associated with one or more customer prior to or upon dialing the one or more customer being dialed; and
+after the customer that has been dialed has been connected, receiving by the talker a second notification that enables the identification in a second manner of the one or more customer record associated with the customer that is connected.
+
+15. The method of claim 14, further comprising the step of receiving a request to call the customer, from the dialing agent, prior to dialing the customer.
+
+16. The method of claim 14, further comprising the step of creating a customer list having at least the customer that has been dialed therein. 

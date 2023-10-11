@@ -1,0 +1,53 @@
+EP3761520
+
+H04B1/70735; H04B1/7083; H04B2201/70701; H04J11/0069; H04L27/2613; H04L27/2656; H04L27/2675; H04L5/0016; H04L5/005; H04W72/02; H04W88/08
+
+1. A method implemented by a user equipment (200, 1530) of receiving precoder matrix indication from a base station (100, 1520) in a wireless communication network, said user equipment being configured to transmit over multiple antenna ports, said method comprising:
+receiving a control message from a base station (100, 1520) including a precoding matrix indication field configurable to at least a first and second configuration,
+wherein the first configuration of the precoding matrix indication field identifies precoding matrices in both a first set and a second set of precoding matrices, where the first and second set of precoding matrices correspond to a requirement for a first and second transmission coherence of the user equipment, respectively; and
+wherein the second configuration of the precoding matrix indication field occupies fewer information bits than the first configuration and identifies precoding matrices in the second set of precoding matrices, but not the first set of precoding matrices.
+
+2. The method of claim 1, wherein the second configuration of the precoding matrix indication field occupies at least one information bit less than the first configuration.
+
+3. The method of any of claims 1-2, further comprising:
+initially recommending the first or second set of precoding matrices by indicating to the base station the first or second transmission coherence as a coherence capability of the user equipment.
+
+4. The method of any of claims 1-3, further comprising:
+transmitting data over two or more antenna ports according to a precoding matrix indicated by a precoding matrix indicator contained in the precoding matrix indication field.
+
+5. A method implemented by a base station (100, 1520) in a wireless communication network of indicating to a user equipment (200, 1530), a precoder for an uplink transmission from the user equipment to the base station, said method comprising:
+transmitting a control message to the user equipment, said control message including a precoding matrix indication field configurable to at least a first and second configuration,
+wherein the first configuration of the precoding matrix indication field identifies precoding matrices in both a first set and a second set of precoding matrices, where the first and second set of precoding matrices correspond to a requirement for a first and second transmission coherence of the user equipment, respectively; and
+wherein the second configuration of the precoding matrix indication field occupies fewer information bits than the first configuration and identifies precoding matrices in the second set of precoding matrices, but not the first set of precoding matrices.
+
+6. The method of claim 5, wherein the second configuration of the precoding matrix indication field occupies at least one information bit less than the first configuration.
+
+7. The method of any of claims 5-6, further comprising:
+receiving data transmitted by the user equipment over two or more antenna ports according to the precoding matrix indicated by a precoding matrix indicator contained in the precoding matrix indicator field.
+
+8. A user equipment (200, 1530) for use in a wireless communication network, said user equipment being configured to transmit over multiple antenna ports, said user equipment comprising:
+an interface circuit (1516); and
+a processing circuit (1518) configured to:
+receive a control message from a base station (100, 1520) including a precoding matrix indication field configurable to at least a first and second configuration,
+wherein the first configuration of the precoding matrix indication field identifies precoding matrices in both a first set and a second set of precoding matrices, where the first and second sets of precoding matrices correspond to a requirement for a first and second transmission coherence of the user equipment, respectively; and
+wherein the second configuration of the precoding matrix indication field occupies fewer information bits than the first configuration and identifies precoding matrices in the second set of precoding matrices, but not the first set of precoding matrices.
+
+9. The user equipment of claim 8, wherein the second configuration of the precoding matrix indication field occupies at least one information bit less than the first configuration.
+
+10. The user equipment of any of claims 8-9, wherein the processing circuit is further configured to:
+initially recommend the first or second set of precoding matrices by indicating to the base station the first or second transmission coherence as a coherence capability of the user equipment.
+
+11. The user equipment of any one of claims 8-10, wherein the processing circuit is further configured to:
+transmit data over two or more antenna ports according to a precoding matrix indicated by a precoding matrix indicator contained in the precoding matrix indication field.
+
+12. A base station (100, 1520) for use in a wireless communication network, said base station comprising:
+an interface circuit (1527); and
+a processing circuit (1 528) configured to:
+transmit a control message to a user equipment (200, 1530), said control message including a precoding matrix indication field configurable to at least a first and second configuration;
+wherein the first configuration of the precoding matrix indication field identifies precoding matrices in both a first set and a second set of precoding matrices, where the first and second set of precoding matrices correspond to a requirement for a first and second transmission coherence of the user equipment, respectively; and
+wherein the second configuration of the precoding matrix indication field occupies fewer information bits than the first configuration and identifies precoding matrices in the second set of precoding matrices, but not the first set of precoding matrices.
+
+13. The base station of claim 12, wherein the second configuration of the precoding matrix indication field occupies at least one information bit less than the first configuration.
+
+14. The base station according to any of claims 12-13, wherein the processing circuit is further configured to:
+receive data transmitted by the user equipment over two or more antenna ports according to the precoding matrix indicated by a precoding matrix indicator contained in the precoding matrix indicator field. 

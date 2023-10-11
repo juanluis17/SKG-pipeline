@@ -1,0 +1,56 @@
+EP3818778
+
+H04W36/0079; H04W4/14; H04W68/005; H04W68/02; H04W76/18; H04W76/19; H04W76/27; H04W24/08; H04W72/23; H04W76/11; H04W80/02; H04W72/042
+
+1. A method of a user equipment, UE (601), in a wireless communication system, the method comprising:
+identifying whether the UE is in a camped on any cell state or a camped normally state;
+monitoring a short message in case that the UE is in the camped on any cell state or the camped normally state; and
+monitoring a paging message in case that the UE is in the camped normally state,
+wherein the short message is received via downlink control information, DCI, with or without the paging message using a short message field.
+
+2. The method of claim 1, wherein the camped on any cell state is only applicable for RRC_IDLE state.
+
+3. The method of claim 1, wherein the camped normally state is applicable for RRC_IDLE and RRC INACTIVE state.
+
+4. The method of claim 1, wherein the short message is received on a physical downlink control channel, PDCCH, using paging radio network temporary identifier, P-RNTI.
+
+5. A method of a base station (602) in a wireless communication system, the method comprising:
+identifying whether to transmit a short message and scheduling information for a paging message;
+transmitting, to a user equipment, UE (601), the short message on a physical downlink control channel (PDCCH) using paging radio network temporary identifier, P-RNTI, based on the identification; and
+transmitting, to the UE, the paging message based on the scheduling information in case that the scheduling information is identified to transmit,
+wherein the short message is transmitted via downlink control information, DCI, with or without the paging message using a short message field.
+
+6. The method of claim 5, wherein the short message is monitored by the UE in a camped on any cell state, and
+wherein the short message and the paging message are monitored by the UE in a camped normally state.
+
+7. The method of claim 6, wherein the camped on any cell state is only applicable for RRC_IDLE state.
+
+8. The method of claim 6,
+wherein the camped normally state is applicable for RRC_IDLE and RRC_INACTIVE state.
+
+9. A user equipment, UE (601), in a wireless communication system, the UE comprising:
+a transceiver; and
+a controller configured to:
+identify whether the UE is in a camped on any cell state or a camped normally state,
+monitor a short message in case that the UE is in the camped on any cell state or the camped normally state, and
+monitor a paging message in case that the UE is in the camped normally state,
+wherein the short message is received via downlink control information, DCI, with or without the paging message using a short message field.
+
+10. The UE of claim 9, wherein the camped on any cell state is only applicable for RRC IDLE state.
+
+11. The UE of claim 9, wherein the camped normally state is applicable for RRC_IDLE and RRC INACTIVE state.
+
+12. The UE of claim 9, wherein the short message is received on a physical downlink control channel, PDCCH, using paging radio network temporary identifier, P-RNTI.
+
+13. A base station (602) in a wireless communication system, the base station comprising:
+a transceiver; and
+a controller configured to:
+identify whether to transmit a short message and scheduling information for a paging message,
+transmit, to a user equipment, UE (601), via the transceiver, the short message on a physical downlink control channel, PDCCH, using paging radio network temporary identifier, P-RNTI, based on the identification, and
+transmit, to the UE via the transceiver, the paging message based on the scheduling information in case that the scheduling information is identified to transmit,
+wherein the short message is transmitted via downlink control information, DCI, with or without the paging message using a short message field.
+
+14. The base station of claim 13, wherein the short message is monitored by the UE in a camped on any cell state, and
+wherein the short message and the paging message are monitored by the UE in a camped normally state.
+
+15. The base station of claim 13, wherein the camped on any cell state is only applicable for RRC_IDLE state, and wherein the camped normally state is applicable for RRC_IDLE and RRC INACTIVE state. 

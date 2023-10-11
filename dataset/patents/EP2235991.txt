@@ -1,0 +1,39 @@
+EP2235991
+
+H04L1/0027; H04L1/0028; H04L1/0038; H04L1/1812; H04L1/1854; H04L1/1861; H04L1/1864; H04L1/1867; H04L1/1896; H04L5/0003; H04L5/0014; H04L5/0037; H04L5/0055; H04L5/0094; H04W72/04; H04W72/0446; H04W72/12; H04W72/20; H04W72/21; H04W72/23; H04W72/0413; H04W72/042; H04W72/1278
+
+1. A control channel signal for use in a mobile communication system providing at least two different scheduling modes, wherein the control channel signal comprises at least a HARQ process field and a RV field, wherein at least one of the values that can be represented by the bits of at least the HARQ process field and the RV field defines a code point used for indicating the scheduling mode for an associated transmission of user data in form of a protocol data unit, and the control channel format to the receiver.
+
+2. The control channel signal according to claim 1, wherein the number of bits of the control channel signal is equal for at least two scheduling modes.
+
+3. The control channel signal according to claim 1 or 2, wherein the HARQ process field and the RV field is located at a fixed position within the control channel signal for all control channel formats.
+
+4. The control channel signal according to one of claims 1 to 3, wherein the HARQ process field and the RV field is used to indicate either a persistent scheduling mode or a dynamic scheduling mode.
+
+5. A scheduling unit for use in a mobile communication system providing at least two different scheduling modes, wherein the scheduling unit is adapted to generate and transmit a control channel signal according to one of claims 1 to 4 to at least one receiver.
+
+6. The scheduling unit according to claim 5, wherein the scheduling unit is adapted to transmit the control channel signal only for retransmissions of the protocol data unit, if a first scheduling mode is used for the transmission of user data.
+
+7. The scheduling unit according to claim 5 or 6, wherein the scheduling unit is adapted to utilize the first scheduling mode for the transmission of protocol data units having a size below a threshold, and to utilize the second scheduling mode for the transmission of protocol data units having a size above or equal to the threshold.
+
+8. The scheduling unit according to one of claims 5 to 7, wherein the scheduling unit is adapted to generate different control channel signal formats depending on the scheduling mode used for the transmission of user data.
+
+9. The scheduling unit according to one of claims 5 to 8, wherein the first scheduling mode is a persistent scheduling mode and the second scheduling mode is a dynamic scheduling mode.
+
+10. A base station for use in a mobile communication system, wherein the base station comprises a scheduling unit according to one of claims 5 to 9.
+
+11. A mobile station for use in a mobile communication system and for receiving user data on the downlink in form of protocol data units, the mobile station comprising:
+a receiver unit for receiving from a base station a sub-frame of a downlink physical channel, and for performing a blind detection on the received sub-frame to thereby decode an initial transmission of a protocol data unit conveying user data within the received sub-frame, and
+a transmitter unit for transmitting a negative feedback to the base station indicating that the protocol data unit has not been decoded successfully during blind detection,
+wherein, in response to the negative feedback, the receiver unit is further adapted to receive another sub-frame of the downlink physical channel from the base station comprising a retransmission of the protocol data unit and a control channel signal according to one of claims 1 to 4 indicating the transport format and the downlink physical channel resources used for the retransmission and initial transmission of the protocol data unit, the receiver unit being further adapted to interpret the content of the control channel signal depending on the scheduling mode indicated in the control signal, and
+a decoder adapted to decode the protocol data unit based on the control channel signal.
+
+12. The mobile station according to claim 11, further comprising a buffer for temporarily storing the unsuccessfully decoded initial transmission of the protocol data unit, and wherein the decoder is adapted to perform a soft combining of the initial transmission and the retransmission of the protocol data unit prior to decoding.
+
+13. A method for providing control channel signals in a mobile communication system, the method comprising the steps performed by a base station:
+generating a control channel signal according to one of claims 1 to 4 and
+transmitting the generated control channel signal in a sub-frame of a physical channel.
+
+14. The method according to claim 13, wherein the base station transmits the control channel signal only for retransmissions of the protocol data unit, in case a first scheduling mode out of at least two different scheduling modes is used for the transmission of the protocol data unit.
+
+15. The method according to claims 14, further comprising the steps of receiving at the base station a feedback message from a mobile station, wherein the feedback message indicates, whether a protocol data unit previously transmitted by the base station has been successfully decoded by the mobile station. 

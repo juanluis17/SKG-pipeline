@@ -1,0 +1,47 @@
+EP3905708
+
+H04N21/2183; H04N21/2368; H04N21/26233; H04N21/637; H04N21/6373; H04N21/64738; H04N21/64769; H04N21/64776; H04N21/845; H04N21/8456; H04L43/0864
+
+1. A method for delivering an audio and/or video content using adaptive streaming from a cache server to a client device, the audio and/or video content being segmented into data segments available in various representations with respective audio and/or video qualities, the representations being time-aligned per segment, the segments being further divided into chunks,
+wherein the method comprises:
+- obtaining a round-trip time value applicable between the cache server and the client device;
+- computing a minimum bulk transfer size mTBS from the maximum average bitrate of the various representations of the audio and/or video content and from the obtained round-trip time value;
+- computing a minimum bulk duration mTBDi, with respect to the audio and/or video content, for the representation i of the audio and/or video content which has to be delivered to the client device; and
+- delivering the audio and/or video content by burst transfers in the form of L bulks of at least one chunk or aggregated successive chunks for each segment, the L bulks containing jointly audio and/or video content data corresponding to said segment,
+and wherein, for each segment, at least L-1 bulk or bulks are respectively formed by M chunk or chunks such that ? j = 1 M CH j > mTBDi
+
+and ? j = 1 M - 1 CH j less than or equal to mTBDi
+
+wherein CHj (j = 1,..,M) represents the time duration of the chunk j with respect to the audio and/or video content.
+
+2. The method according to claim 1, wherein the round-trip time value is stored by the cache server as a default configuration parameter and corresponds to the maximum possible round trip time the cache server has to deal with when delivering audio and/or video content data to any client device.
+
+3. The method according to claim 1, wherein the round-trip time value is average round trip time value computed by the cache server over time by analyzing sessions for delivering audio and/or video contents to client devices.
+
+4. The method according to claim 2 or 3, wherein such round-trip time value is used as initial configuration and definition of the minimum bulk transfer size mTBS and the minimum bulk duration mTBDi, and then dynamically updated, as well as the minimum bulk transfer size mTBS and the minimum bulk duration mTBDi, according to measurements of round trip time between the cache server and the client device.
+
+5. The method according to any one of claims 1 to 3, wherein the same round trip time value is used over a whole session of delivering audio and/or video content.
+
+6. The method according to claim 5, wherein for obtaining the round trip time value, the cache server, when receiving from the client device a request for obtaining a playlist or manifest file related to the audio and/or video content, the cache server redirects the client device so as to force the client device to retransmit the request in question, and computes the round trip time value as the time difference from the instant at which the cache server redirected the client device to the instant at which the cache server receives again the request in question from the client device.
+
+7. The method according to claim 6, wherein the cache server indicates in the playlist or manifest file that a duration of partial segments equals the duration of the bulk of chunks as defined as function of the round trip time value.
+
+8. The method according to any one of claims 1 to 5, wherein a manifest file related to the audio and/or video content indicates that segment request can be made as soon as a chunk is theoretically available, and wherein the cache server blocks processing of segment request received from the client device until enough chunks of the requested segment are available in cache to build the bulk to be transmitted in response.
+
+9. A computer program product comprising program code instructions that can be loaded in a programmable device for implementing the method according to any one of claims 1 to 8, when the program code instructions are run by the programmable device.
+
+10. An information storage medium storing a computer program comprising program code instructions that can be loaded in a programmable device for implementing the method according to any one of claims 1 to 8, when the program code instructions are read from the information storage medium and run by the programmable device.
+
+11. A cache server configured for delivering an audio and/or video content using adaptive streaming to a client device, the audio and/or video content being segmented into data segments available in various representations with respective audio and/or video qualities, the representations being time-aligned per segment, the segments being further divided into chunks,
+wherein the cache server comprises electronic circuitry configured for:
+- obtaining a round-trip time value applicable between the cache server and the client device;
+- computing a minimum bulk transfer size mTBS from the maximum average bitrate of the various representations of the audio and/or video content and from the obtained round-trip time value;
+- computing a minimum bulk duration mTBDi, with respect to the audio and/or video content, for the representation i of the audio and/or video content which has to be delivered to the client device; and
+- delivering the audio and/or video content by burst transfers in the form of L bulks of at least one chunk or aggregated successive chunks for each segment, the L bulks containing jointly audio and/or video content data corresponding to said segment,
+and wherein, for each segment, at least L-1 bulk or bulks are respectively formed by M chunk or chunks such that ? j = 1 M CH j > mTBDi
+
+and ? j = 1 M - 1 CH j less than or equal to mTBDi
+
+wherein CHj (j = 1,..,M) represents the time duration of the chunk j with respect to the audio and/or video content.
+
+12. A Content Delivery Network including the cache server according to claim 11. 

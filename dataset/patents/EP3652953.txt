@@ -1,0 +1,99 @@
+EP3652953
+
+H04N21/2668; H04N21/4331
+
+1. Method for signalling, to a terminal (110), the substitution of a content which is broadcast via a broadcast network (120) to which the terminal is connected with a substitution content which is targeted at least for the terminal, characterised in that it comprises:
+• obtaining (E300) at least one substitution information packet (210, 220) comprising time information indicating a time of execution by the terminal of at least one action for substituting the broadcast content with the substitution content;
+• generating (E310) at least one event notification message (230) leading to the terminal executing the at least one action, the execution being initiated immediately upon receipt of the at least one event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal; and
+• inserting (E320), in a data flow which conveys the broadcast content within the broadcast network, the at least one event notification message at a time slot which is a function of the time information item.
+
+2. Method according to claim 1, wherein the at least one substitution information packet (210, 220) comprises at least one identification information item (2120b31), the at least one action being a function of the at least one identification information item,
+and wherein the generation involves an encapsulation (E310a) of the at least one identification information item in the at least one event notification message.
+
+3. Method according to claim 1, wherein the at least one substitution information packet (210, 220) comprises a single identification information item which can assume several values which are each associated, in the terminal, with a different set of at least one action,
+and wherein the generation comprises an encapsulation (E310a) of the single identification information item in the at least one event notification message.
+
+4. Method according to any one of claims 1 to 3, wherein the at least one substitution information item further comprises:
+• a first information item (2120b1) which enables an elementary flow component of the data flow to be identified;
+• a second information item (2120b2) which enables an event flow in the elementary flow component to be identified, the at least one event notification message being included in the event flow; and
+• filtering information (2120b32);
+the first and second information items and the filtering information being transmitted at least to the terminal; and wherein the insertion is a function of the first information item,
+and wherein the generation step comprises an encapsulation (E310b) of the filtering information and the second information item in the at least one event notification message.
+
+5. Method according to any one of claims 1 to 4, further comprising:
+• another insertion (E330), in the data flow, of at least one image which enables a decoding of the data flow to be initiated by the terminal,
+and wherein a time difference in the data flow between the at least one image and the at least one event notification message is greater than an execution latency of the action identified after the at least one event notification message has been received.
+
+6. Method according to claim 5, wherein the at least one substitution information packet also comprises:
+• insertion information (2120b4) indicating whether the other insertion has to be carried out; and
+• another time information item which indicates a time slot for inserting the at least one image in the data flow when the insertion information items indicate that the other insertion has to be carried out.
+
+7. Method according to any one of claims 1 to 6, wherein the at least one substitution information packet follows an SCTE protocol ("Society of Cable Telecommunications Engineers) 35 or 104.
+
+8. Method according to any one of claims 1 to 7, wherein the insertion step is implemented at least twice so that:
+• a first event notification message is inserted at a first time (t1) in the data flow which conveys the content broadcast within the broadcast network, the first time substantially corresponding to a beginning of a first inter-sequence which precedes the broadcast content to be substituted, the first event notification message bringing about at least one restitution of a first stand-by element by the terminal, the restitution of the first stand-by element being initiated immediately upon receipt of the first event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal; and
+• a second event notification message is inserted at a second time (t2) in the data flow which conveys the content broadcast within the broadcast network, the second time substantially corresponding to a beginning of the broadcast content to be substituted, the second event notification message bringing about at least one masking of the first stand-by element by the terminal, the masking of the first stand-by element being initiated immediately upon receipt of the second event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal.
+
+9. Method according to claim 8, wherein the insertion step is carried out at least two other times so that:
+• a third event notification message is inserted at a third time (t3) in the data flow which conveys the content broadcast within the broadcast network, the third time substantially corresponding to a beginning of a second inter-sequence which follows the broadcast content to be substituted, the third event notification message bringing about at least one restitution of a second standby element by the terminal, the restitution of the second standby element being initiated immediately upon receipt of the third event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal; and
+• a fourth event notification message is inserted at a fourth time (t4) in the data flow which conveys the content broadcast within the broadcast network, the fourth time substantially corresponding to a beginning of another broadcast content following the second inter-sequence, the fourth event notification message bringing about at least one masking of the second stand-by element by the terminal, the masking of the second stand-by element being initiated immediately upon receipt of the fourth event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal.
+
+10. Method according to claim 9, wherein the at least one other image which enables a decoding of the other broadcast content to be initiated, by the terminal, is inserted into the data flow,
+wherein the third event notification message further initiates an action which brings about a decoding of the other broadcast content,
+and wherein a time difference in the data flow between the at least one other image and the third event notification message is greater than an execution latency of the action which brings about the decoding of the other content broadcast by the terminal.
+
+11. Method for substituting, by a terminal (110), a content which is broadcast via a broadcast network (120) to which the terminal is connected via a substitution content which is targeted at least for the terminal, characterised in that the terminal:
+• receives (E420) at least one event notification message (430) inserted in a data flow which conveys the content broadcast within the broadcast network; and
+• executes (E430) at least one action for substituting the broadcast content with the substitution content, the execution being initiated immediately upon receipt of the at least one event notification message by the terminal and being carried out after an execution latency which is linked only to hardware implementation constraints in the terminal.
+
+12. Method according to claim 11, wherein the execution involves obtaining (E430a) at least one identification information item (2120b31) which is encapsulated in the at least one event notification message,
+and wherein the at least one action is a function of the at least one identification information item obtained.
+
+13. Method according to claim 11, wherein the execution involves obtaining (E430a) a single identification information item which can assume several values which are each associated, in the terminal, with a different set of at least one action, and wherein the at least one action is a function of the single identification information item obtained.
+
+14. Method according to any one of claims 11 to 13, wherein the terminal further carries out another receiving operation (E410), via a broadband network (130) to which the terminal is connected, of:
+• a first information item (2120b1) which enables an elementary flow component of the data flow to be identified,
+• a second information item (2120b2) which enables an event flow to be identified in the elementary flow component, the at least one event notification message being inserted in the event flow; and
+• a filtering information item (2120b32), the at least one event notification message further encapsulating the filtering information;
+and wherein the receipt of the at least one event notification message is a function of the first and second information items, in order to identify an event flow in the elementary flow component, and the filtering information, in order to identify the at least one event notification message within the event flow identified.
+
+15. Method according to any one of claims 11 to 14, wherein the terminal further carries out a receiving operation (E400) of the targeted content via the broadcast network or via the broadband network to which the terminal is connected.
+
+16. Method according to any one of claims 11 to 15, wherein the execution step is implemented at least twice so that:
+• a restitution of a first stand-by element is executed by the terminal, the restitution of the first stand-by element being initiated immediately upon receipt of the first event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal, the first event notification message being inserted at a first time (t1) in the data flow which conveys the content broadcast within the broadcast network, the first time substantially corresponding to a beginning of a first inter-sequence which precedes the broadcast content to be substituted; and
+• a masking of the first stand-by element is carried out by the terminal, the masking of the first stand-by element being initiated immediately upon receipt of the second event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal, the second event notification message being inserted at a second time (t2) in the data flow which conveys the content broadcast within the broadcast network, the second time substantially corresponding to a beginning of the broadcast content to be substituted.
+
+17. Method according to claim 16, wherein the first event notification message further initiates an action which brings about a decoding of the substitution content by a decoder of the terminal, the decoder generating a first event when the substitution content is available for restitution,
+and wherein, when the first event is generated before the second event notification message is received by the terminal, the terminal executes the masking of the first standby element and restitutes the substitution content as soon as the decoder has generated the first event.
+
+18. Method according to claim 16 or 17, wherein the execution step is implemented at least two other times, so that:
+• a restitution of a second stand-by element is executed by the terminal, the restitution of the second stand-by element being initiated immediately upon receipt of a third event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal, the third event notification message being inserted at a third time (t3) in the data flow which conveys the content broadcast within the broadcast network, the third time substantially corresponding to a beginning of a second inter-sequence which follows the broadcast content to be substituted; and
+• a masking of the second stand-by element is carried out by the terminal, the masking of the second stand-by element being initiated immediately upon receipt of a fourth event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal, the fourth event notification message being inserted at a fourth time (t4) in the data flow which conveys the content broadcast within the broadcast network, the fourth time substantially corresponding to a beginning of another broadcast content in accordance with the second inter-sequence.
+
+19. Method according to claim 18, wherein the decoder generates a second event when the decoding of the substitution content is terminated, and wherein, when the second event is generated, before the third event notification message is received by the terminal, the terminal carries out the restitution of the second stand-by element as soon as the decoder has generated the second event.
+
+20. Method according to any one of claims 4 to 10, when dependent on claim 4, or according to any one of claims 14 to 19, when dependent on claim 14, wherein the filtering information (2120b32) is an identifier (2120b33) of the broadcast content.
+
+21. Method according to any one of claims 1 to 20, wherein the at least one action defined via the first encapsulated substitution information belongs to the group comprising:
+• a preparation for a substitution;
+• a decoding of the targeted content;
+• a restitution of the targeted content in a decoded form;
+• a repetition of the decoding of the broadcast content; and
+• a restitution of a stand-by element.
+
+22. Method according to any one of claims 1 to 21, wherein the execution by the terminal of the at least one action is carried out with a predetermined effective execution latency, which is different from an intrinsic latency of the terminal and which is in common with at least one other terminal for which the substitution content is also targeted.
+
+23. Method according to any one of claims 1 to 22, wherein the terminal is a hybrid terminal which supports the HbbTV standard (Hybrid Broadcast Broadband TV).
+
+24. Method according to any one of claims 1 to 23, wherein the data flow is in the MPEG-TS format ("Moving Picture Experts Group - Transport Stream"), and wherein at least one event notification message is a "stream event" in the DSM-CC format (Digital Storage Media Command and Control).
+
+25. Computer program product comprising program code instructions for implementing a method according to any one of claims 1 to 23, when the program is executed on a computer.
+
+26. Broadcast system (100) which is configured to signal, to a terminal (110), the substitution of a content broadcast via a broadcast network (120) to which the terminal is connected with a substitution content which is targeted at least for the terminal, characterised in that it comprises:
+• means for obtaining (602) at least one substitution information packet (210, 220) comprising a time information item which is indicative of a time of execution by the terminal of at least one action for substituting the content broadcast by the substitution content;
+• means for generating (602) at least one event notification message (230) leading to the terminal executing the at least one action, the execution being initiated immediately upon receipt of the at least one event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal; and
+• means for inserting (602) in a data flow which conveys the content broadcast within the broadcast network, the at least one event notification message at a time slot which is a function of the time information item.
+
+27. Terminal (110) which is configured to substitute a content which is broadcast via a broadcast network (120) to which the terminal is connected with a substitution content which is targeted at least for the terminal, characterised in that it comprises:
+• means for receiving (702) at least one event notification message (430) which is inserted in a data flow which conveys the content broadcast within the broadcast network; and
+• means for executing (702) at least one action for substituting the content broadcast by the substitution content, the execution being initiated immediately upon receipt of the at least one event notification message by the terminal and after an execution latency which is linked only to hardware implementation constraints in the terminal.

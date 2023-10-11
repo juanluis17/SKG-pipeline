@@ -1,0 +1,63 @@
+EP3595302
+
+H04N19/105; H04N19/11; H04N19/117; H04N19/132; H04N19/157; H04N19/176; H04N19/593; H04N19/80; H04N19/82
+
+1. An video decoding method performed by a decoding device, the method comprising:
+deriving (S1400) an intra-prediction mode of a current block;
+deriving (S1410) neighboring samples including left neighboring samples and upper neighboring samples of the current block;
+deriving (S1420) reference samples for prediction of a target sample of the current block among the neighboring samples based on a position of the target sample and a prediction angle of the intra-prediction mode;
+determining (S1430) an interpolation filter for the target sample based on the intra-prediction mode and a size of the current block; and
+deriving (S1440) a prediction sample of the target sample based on the interpolation filter and the reference samples,
+wherein determining the interpolation filter for the target sample based on the intra-prediction mode and the size of the current block comprises:
+determining whether the size of the current block is smaller than a first specific value; and characterized in that:
+when the size of the current block is smaller than the first specific value, determining whether the prediction angle of the intra-prediction mode is smaller than a second specific value,
+wherein the intra-prediction mode is one of directional intra prediction modes with a prediction angle greater than 0,
+wherein the prediction angle of the intra-prediction mode is determined as an angle between a prediction direction of the intra prediction mode and the closer one of a horizontal prediction direction and a vertical prediction direction,
+wherein when the size of the current block is not smaller than the first specific value, the interpolation filter for the target sample is derived as a Gaussian filter,
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is smaller than the second specific value, the interpolation filter for the target sample is derived as a cubic filter, and
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is not smaller than the second specific value, the interpolation filter for the target sample is derived as the Gaussian filter.
+
+2. The video decoding method of claim 1, wherein
+the deriving of the prediction sample of the target sample based on the interpolation filter and the reference samples comprises:
+deriving filter coefficients of the interpolation filter based on the position of the target sample and the prediction angle; and
+deriving the prediction sample of the target sample based on the filter coefficients and the reference samples.
+
+3. The video decoding method of claim 1, wherein
+when a width and a height of the current block are equal, the size of the current block is equal to the width of the current block.
+
+4. The video decoding method of claim 1, wherein
+when a width and a height of the current block are different and the intra-prediction mode of the current block is a directional intra-prediction mode having vertical directionality, the size of the current block is equal to the width of the current block.
+
+5. The video decoding method of claim 1, wherein
+when a width and a height of the current block are different and the intra-prediction mode of the current block is a directional intra-prediction mode having horizontal directionality, the size of the current block is equal to the height of the current block.
+
+6. An video encoding method performed by an encoding device, the method comprising:
+determining (S1300) an intra-prediction mode of a current block;
+deriving (S1310) neighboring samples including left neighboring samples and upper neighboring samples of the current block;
+deriving (S1320) reference samples for prediction of a target sample of the current block among the neighboring samples based on a position of the target sample and a prediction angle of the intra-prediction mode;
+determining (S1330) an interpolation filter for the target sample based on the intra-prediction mode and a size of the current block;
+deriving (S1340) a prediction sample of the target sample based on the interpolation filter and the reference samples; and
+encoding (S1350) video information comprising prediction information for the current block,
+wherein determining the interpolation filter for the target sample based on the intra-prediction mode and the size of the current block comprises:
+determining whether the size of the current block is smaller than a first specific value; and characterized in that:
+when the size of the current block is smaller than the first specific value, determining whether the prediction angle of the intra-prediction mode is smaller than a second specific value,
+wherein the intra-prediction mode is one of directional intra prediction modes with a prediction angle greater than 0,
+wherein the prediction angle of the intra-prediction mode is determined as an angle between a prediction direction of the intra prediction mode and the closer one of a horizontal prediction direction and a vertical prediction direction,
+wherein when the size of the current block is not smaller than the first specific value, the interpolation filter for the target sample is derived as a Gaussian filter,
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is smaller than the second specific value, the interpolation filter for the target sample is derived as a cubic filter, and
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is not smaller than the second specific value, the interpolation filter for the target sample is derived as the Gaussian filter.
+
+7. A non-transitory computer-readable storage medium storing video information, the video information, when executed, characterized by causing a decoding apparatus to perform the following steps:
+deriving (S1400) an intra-prediction mode of a current block;
+deriving (S1410) neighboring samples including left neighboring samples and upper neighboring samples of the current block;
+deriving (S1420) reference samples for prediction of a target sample of the current block among the neighboring samples based on a position of the target sample and a prediction angle of the intra-prediction mode;
+determining (S1430) an interpolation filter for the target sample based on the intra-prediction mode and a size of the current block; and
+deriving (S1440) a prediction sample of the target sample based on the interpolation filter and the reference samples,
+wherein determining the interpolation filter for the target sample based on the intra-prediction mode and the size of the current block comprises:
+determining whether the size of the current block is smaller than a first specific value; and characterized in that:
+when the size of the current block is smaller than the first specific value, determining whether the prediction angle of the intra-prediction mode is smaller than a second specific value,
+wherein the intra-prediction mode is one of directional intra prediction modes with a prediction angle greater than 0,
+wherein the prediction angle of the intra-prediction mode is determined as an angle between a prediction direction of the intra prediction mode and the closer one of a horizontal prediction direction and a vertical prediction direction,
+wherein when the size of the current block is not smaller than the first specific value, the interpolation filter for the target sample is derived as a Gaussian filter,
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is smaller than the second specific value, the interpolation filter for the target sample is derived as a cubic filter, and
+wherein when the size of the current block is smaller than the first specific value and the prediction angle of the intra-prediction mode is not smaller than the second specific value, the interpolation filter for the target sample is derived as the Gaussian filter.

@@ -1,0 +1,98 @@
+EP3713160
+
+H04L45/22; H04L45/36; H04L45/38; H04L45/50; H04L47/11; H04L47/12; H04L47/122; H04L47/24
+
+1. A packet transmission method, wherein the method comprises:
+receiving (502), by a first device, a first packet from a second device, wherein the first packet comprises a primary scheduling identifier, and the primary scheduling identifier is used to identify that the second device has permission to select a first path;
+determining (502), by the first device, the first path used to transmit the first packet according to the first packet; and
+sending (503), by the first device, a second packet to the second device by using the first path, wherein the second packet comprises a following identifier, and the following identifier is used to identify that the first device sends a packet by using a transmission path selected by a device other than the first device.
+
+2. The method according to claim 1, wherein the first packet further comprises a path version identifier, and the path version identifier is used to identify whether a path selected by a packet transmit end changes; and
+after the sending, by the first device, a second packet to the second device by using the first path, the method further comprises:
+receiving, by the first device, a third packet from the second device, wherein the third packet comprises the primary scheduling identifier and a path version identifier;
+if the first device determines that the path version identifier carried in the third packet is different from the path version identifier carried in the first packet, determining a second path used to transmit the third packet; and
+sending, by the first device, a fourth packet to the second device by using the second path, wherein the fourth packet comprises the following identifier.
+
+3. The method according to claim 1, wherein the determining, by the first device, a first path used to transmit the first packet comprises:
+obtaining, by the first device, the first path through parsing from the first packet; or
+determining, by the first device based on a first correspondence and an interface identifier that is used to receive the first packet, path information corresponding to the interface identifier that is used to receive the first packet, and using a path corresponding to the determined path information as the first path used to transmit the first packet, wherein the first correspondence comprises a correspondence between the interface identifier and the path information.
+
+4. The method according to any one of claims 1 to 3, wherein the second packet further comprises a backward congestion back pressure identifier; and
+after the receiving, by a first device, a first packet from a second device, the method further comprises:
+determining, by the first device, whether a path in a receiving direction of the first device is congested; and if the path in the receiving direction of the first device is congested, setting the backward congestion back pressure identifier comprised in the second packet to a first value, or if the path in the receiving direction of the first device is not congested, setting the backward congestion back pressure identifier comprised in the second packet to a second value.
+
+5. The method according to any one of claims 1 to 4, wherein the second packet further comprises a forward congestion back pressure identifier, and before the sending, by the first device, a second packet to the second device by using the first path, the method further comprises:
+determining, by the first device, whether a path in a sending direction of the first device is congested; and if the path in the sending direction of the first device is congested, setting the forward congestion back pressure identifier comprised in the second packet to the first value, or if the path in the sending direction of the first device is not congested, setting the forward congestion back pressure identifier comprised in the second packet to the second value.
+
+6. A packet transmission method, wherein the method comprises:
+receiving (802), by a first device, a first packet from a second device, wherein the first packet comprises a following identifier, and the following identifier is used to identify that the second device sends the packet by using a transmission path selected by a device other than the second device;
+determining (803), by the first device based on a path selection policy, a first path used to send a second packet; and
+sending (804), by the first device, the second packet to the second device by using the first path, wherein the second packet comprises a primary scheduling identifier, and the primary scheduling identifier is used to identify that the first device has permission to select the first path.
+
+7. The method according to claim 6, wherein after the sending, by the first device, the second packet to the second device by using the first path, the method further comprises:
+receiving, by the first device, a third packet from the second device, wherein the third packet comprises the following identifier, and a transmission path of the third packet is the first path.
+
+8. The method according to claim 6, wherein the first packet further comprises a forward congestion back pressure identifier and/or a backward congestion back pressure identifier; and
+after the determining, by the first device based on a path selection policy, a first path used to send a second packet, the method further comprises:
+if the first packet meets a preset condition, and neither a path in a receiving direction of the first device nor a path in a sending direction of the first device is congested, waiving, by the first device, the permission to select a path, wherein the preset condition comprises: the forward congestion back pressure identifier comprised in the first packet is a first value, and/or the backward congestion back pressure identifier comprised in the first packet is the first value, wherein the first value is used to indicate that congestion occurs; and
+sending, by the first device, a fourth packet to the second device by using the first path, wherein the fourth packet comprises the following identifier, both a forward congestion back pressure identifier and a backward congestion back pressure identifier carried in the fourth packet are a second value, and the second value is used to indicate that no congestion occurs.
+
+9. The method according to claim 8, wherein after the sending, by the first device, a fourth packet to the second device by using the first path, the method further comprises:
+receiving, by the first device, a fifth packet from the second device, wherein the fifth packet comprises a primary scheduling identifier, and a transmission path of the fifth packet is a fourth path selected by the second device according to the path selection policy.
+
+10. The method according to claim 6, wherein the first packet and the second packet each further comprise a path version identifier, and the path version identifier is used to identify whether a path selected by a packet transmit end changes; and
+after the receiving, by a first device, a first packet from a second device, and before the determining, by the first device based on a path selection policy, a first path used to send a second packet, the method further comprises:
+if the first device determines to reselect a transmission path used to send the packet, setting a path version identifier comprised in the second packet to a third value, wherein the third value is used to indicate that the path selected by the first device changes; or
+if the first device determines not to change a transmission path used to send the packet, setting a path version identifier comprised in the second packet to a fourth value, wherein the fourth value is used to indicate that the path selected by the first device does not change.
+
+11. The method according to any one of claims 6 to 10, wherein before the receiving, by a first device, a first packet from a second device, the method further comprises:
+receiving, by the first device, a primary-secondary selection policy delivered by a controller; and
+determining, by the first device based on the primary-secondary selection policy, whether the first device has the permission to select a path, wherein the primary-secondary selection policy comprises at least one or more of the following:
+a device, in the first device and the second device, with a smaller link bandwidth has the permission to select a path;
+in the first device and the second device, a device serving as a branch router spoke has the permission to select a path, and a device serving as a hub has permission to follow the path selected by the device serving as the spoke;
+a correspondence between an identifier of the first device and scheduling permission and a correspondence between an identifier of the second device and scheduling permission; and
+a correspondence between a system IP address of the first device and scheduling permission and a correspondence between a system IP address of the second device and scheduling permission.
+
+12. A packet transmission apparatus, wherein the apparatus comprises:
+a transceiver module (1001), configured to receive a first packet from a second device, wherein the first packet comprises a primary scheduling identifier, and the primary scheduling identifier is used to identify that the second device has permission to select a first path; and
+a processing module (1002), configured to determine the first path used to transmit the first packet according to the first packet, wherein
+the transceiver module (1001) is further configured to send a second packet to the second device by using the first path, wherein the second packet comprises a following identifier, and the following identifier is used to identify that the apparatus sends the packet by using a transmission path selected by a device other than the apparatus.
+
+13. The apparatus according to claim 12, wherein the first packet further comprises a path version identifier, and the path version identifier is used to identify whether a path selected by a packet transmit end changes;
+after sending the second packet to the second device by using the first path, the transceiver module (1001) is further configured to receive a third packet from the second device, wherein the third packet comprises the primary scheduling identifier and a path version identifier;
+the processing module (1002) is further configured to: if it is determined that the path version identifier carried in the third packet is different from the path version identifier carried in the first packet, determine a second path used to transmit the third packet; and
+the transceiver module (1001) is further configured to send a fourth packet to the second device by using the second path, wherein the fourth packet comprises the following identifier.
+
+14. The apparatus according to claim 12, wherein the processing module (1002) is specifically configured to:
+obtain the first path through parsing from the first packet; or
+determine, based on a first correspondence and an interface identifier that is used to receive the first packet, path information corresponding to the interface identifier that is used to receive the first packet, and use a path corresponding to the determined path information as the first path used to transmit the first packet, wherein the first correspondence comprises a correspondence between the interface identifier and the path information.
+
+15. The apparatus according to any one of claims 12 to 14, wherein the second packet further comprises a backward congestion back pressure identifier; and
+the processing module (1002) is further configured to: after the transceiver module (1001) receives the first packet from the second device, determine whether a path in a receiving direction of the apparatus is congested; and if the path in the receiving direction of the apparatus is congested, set the backward congestion back pressure identifier comprised in the second packet to a first value, or if the path in the receiving direction of the apparatus is not congested, set the backward congestion back pressure identifier comprised in the second packet to a second value.
+
+16. The apparatus according to any one of claims 12 to 15, wherein the second packet further comprises a forward congestion back pressure identifier, and the processing module (1002) is further configured to: before the transceiver module (1001) sends the second packet to the second device by using the first path, determine whether a path in a sending direction of the apparatus is congested; and if the path in the sending direction of the apparatus is congested, set the forward congestion back pressure identifier comprised in the second packet to the first value, or if the path in the receiving direction of the apparatus is not congested, set the forward congestion back pressure identifier comprised in the second packet to the second value.
+
+17. A packet transmission apparatus, wherein the apparatus comprises:
+a transceiver module (1001), configured to receive a first packet from a second device, wherein the first packet comprises a following identifier, and the following identifier is used to identify that the second device sends the packet by using a transmission path selected by a device other than the second device; and
+a processing module (1002), configured to determine, based on a path selection policy, a first path used to send a second packet, wherein
+the transceiver module (1001) is further configured to send the second packet to the second device by using the first path, wherein the second packet comprises a primary scheduling identifier, and the primary scheduling identifier is used to identify that the apparatus has permission to select the first path.
+
+18. The apparatus according to claim 17, wherein after sending the second packet to the second device by using the first path, the transceiver module is further configured to receive a third packet from the second device, wherein the third packet comprises the following identifier, and a transmission path of the third packet is the first path.
+
+19. The apparatus according to claim 17, wherein the first packet further comprises a forward congestion back pressure identifier and/or a backward congestion back pressure identifier;
+after determining, based on the path selection policy, the first path used to send the second packet, the processing module is further configured to: if the first packet meets a preset condition, and neither a path in a receiving direction of the apparatus nor a path in a sending direction of the apparatus is congested, waive the permission to select a path, wherein the preset condition comprises: the forward congestion back pressure identifier comprised in the first packet is a first value, and/or the backward congestion back pressure identifier comprised in the first packet is the first value, wherein the first value is used to indicate that congestion occurs; and
+the transceiver module is further configured to send a fourth packet to the second device by using the first path, wherein the fourth packet comprises the following identifier, both a forward congestion back pressure identifier and a backward congestion back pressure identifier carried in the fourth packet are a second value, and the second value is used to indicate that no congestion occurs.
+
+20. The apparatus according to claim 19, wherein after sending the fourth packet to the second device by using the first path, the transceiver module is further configured to receive a fifth packet from the second device, wherein the fifth packet comprises a primary scheduling identifier, and a transmission path of the fifth packet is a fourth path selected by the second device according to the path selection policy.
+
+21. The apparatus according to claim 17, wherein the first packet and the second packet each further comprise a path version identifier, and the path version identifier is used to identify whether a path selected by a packet transmit end changes; and
+after the transceiver module receives the first packet from the second device, and before the processing module determines, based on the path selection policy, the first path used to send the second packet, the processing module is further configured to: if determining to reselect a transmission path used to send the packet, set a path version identifier comprised in the second packet to a third value, wherein the third value is used to indicate that the path selected by the apparatus changes; or if determining not to change a transmission path used to send the packet, set a path version identifier comprised in the second packet to a fourth value, wherein the fourth value is used to indicate that the path selected by the apparatus does not change.
+
+22. The apparatus according to any one of claims 17 to 21, wherein before receiving the first packet from the second device, the transceiver module is further configured to receive a primary-secondary selection policy delivered by a controller; and
+the processing module is further configured to determine, based on the primary-secondary selection policy, whether the apparatus has the permission to select a path, wherein the primary-secondary selection policy comprises at least one or more of the following:
+a device, in the apparatus and the second device, with a smaller link bandwidth has the permission to select a path;
+in the apparatus and the second device, a device serving as a branch router spoke has the permission to select a path, and a device serving as a hub has permission to follow the path selected by the device serving as the spoke;
+a correspondence between an identifier of the apparatus and scheduling permission and a correspondence between an identifier of the second device and scheduling permission; or
+a correspondence between a system IP address of the apparatus and scheduling permission and a correspondence between a system IP address of the second device and scheduling permission.
+
+23. A computer program, comprising computer program instructions, wherein when the computer program instruction runs on a computer, the computer performs the method according to any one of claims 1 to 11. 

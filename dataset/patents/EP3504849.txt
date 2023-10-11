@@ -1,0 +1,31 @@
+EP3504849
+
+H04L47/29; H04L47/30; H04L47/32; H04L49/103; H04L49/108; H04L49/3036; H04L49/9005; H04L49/9084
+
+1. A method of managing memory (303) shared amongst multiple queues in a network switch, wherein the shared memory is logically apportioned into a dynamic allocation portion (305) and a global reserve portion (307), wherein the dynamic allocation portion is a shared resource available to any queue until an occupancy level of that queue has reached a dynamic queue threshold, and wherein the global reserve portion is reserved for low volume queues for which the queue occupancy does not exceed a static queue minimum threshold, the method comprising:
+receiving a data packet at a first network queue from among a plurality of network queues;
+if the shared memory (303) contains unallocated space, determining (210) if a fill level of the first network queue in the shared memory exceeds the dynamic queue threshold, wherein the dynamic queue threshold is based on an amount of unallocated memory in the shared memory; and
+in an event that the fill level of the first network queue exceeds the dynamic queue threshold:
+determining (208) if the fill level of the first network queue is less than the static queue minimum threshold;
+enqueuing (212) the data packet in the global reserve portion of the shared memory if the fill level of the first network queue is less than the static queue minimum threshold; and
+dropping (204) the data packet if the fill level of the first network queue is greater than the static queue minimum threshold.
+
+2. The method of claim 1, wherein the static queue minimum threshold is a user defined value that relates to a minimum amount of memory in the shared memory that is allocated for use by queues.
+
+3. The method of claim 1, wherein the packet is enqueued in the dynamic allocation portion if the fill level of the first network queue in the shared memory is less than the dynamic queue threshold.
+
+4. A shared memory network switch (410) comprising:
+at least one processor (463);
+a shared memory (303, 461), the shared memory being logically apportioned into a dynamic allocation portion (305) and a global reserve portion (307); and
+a memory device storing instructions that, when executed by the at least one processor, cause the at least one processor to perform operations comprising a method according to any preceding claim.
+
+5. Apparatus for managing memory shared amongst multiple queues in a network switch (410), wherein the shared memory is logically apportioned into a dynamic allocation portion (305) and a global reserve portion (307), wherein the dynamic allocation portion is a shared resource available to any queue until an occupancy level of that queue has reached a dynamic queue threshold, and wherein the global reserve portion is reserved for low volume queues for which the queue occupancy does not exceed a static queue minimum threshold, the apparatus comprising:
+means for receiving a data packet at a first network queue from among a plurality of network queues;
+means for determining (210), if the memory (303) contains unallocated space, whether a fill level of the first network queue in the shared memory exceeds the dynamic queue threshold, wherein the dynamic queue threshold is based on an amount of unallocated memory in the shared memory;
+means for determining (208), in an event that the fill level of the first network queue exceeds the dynamic queue threshold, if the fill level of the first network queue is less than the static queue minimum threshold;
+means for enqueuing (212) the data packet in the global reserve portion of the shared memory if the fill level of the first network queue is less than the static queue minimum threshold; and
+means for dropping (204) the data packet if the fill level of the first network queue is greater than the static queue minimum threshold.
+
+6. The apparatus according to claim 5 further comprising means for implementing the method according to claim 2 or 3.
+
+7. A computer program, computer program product or logic encoded on a tangible computer readable medium comprising instructions for implementing the method according to any one of claims 1 to 3. 

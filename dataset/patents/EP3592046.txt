@@ -1,0 +1,56 @@
+EP3592046
+
+H04L5/0007; H04L5/0053; H04L5/0091; H04L5/0094; H04W52/08; H04W52/146; H04W52/262; H04W52/30; H04W52/325; H04W52/367; H04W72/044; H04W72/0446; H04W72/0453; H04W72/20; H04W72/21; H04W72/23; H04W72/0406; H04W72/0413
+
+1. A method (400) performed by a terminal for transmitting uplink signal in a wireless communication system, the method comprising:
+identifying a number of orthogonal frequency division multiplexing, OFDM, symbols for a transmission of uplink control information on a physical uplink control channel, PUCCH;
+determining a transmission power of the transmission of the uplink control information based on the number of the OFDM symbols; and
+transmitting, to a base station, the uplink control information on the PUCCH in the OFDM symbols based on the determined transmission power,
+wherein the determined transmission power increases as the number of OFDM symbols decreases.
+
+2. The method of claim 1, wherein the determining comprises applying a component of a PUCCH transmission power adjustment for calculating the transmission power, the component being defined by the number of OFDM symbols.
+
+3. The method of claim 2, wherein a value of the component increases as the number of OFDM symbols decreases, and
+wherein the value of the component increases non-linearly as the number of OFDM symbol decreases.
+
+4. The method of claim 1, wherein the number of OFDM symbols for the uplink control information is determined by at least one of a higher layer signaling and downlink control information.
+
+5. A terminal (303) for transmitting uplink signal in a wireless communication system, the terminal comprising:
+a transceiver configured to transmit and receive signals; and
+a controller (901) configured to:
+identify a number of orthogonal frequency division multiplexing, OFDM, symbols for a transmission of uplink control information on a physical uplink control channel, PUCCH,
+determine a transmission power of the transmission of the uplink control information based on the number of the OFDM symbols, and
+transmit, to a base station, the uplink control information on the PUCCH in the OFDM symbols based on the determined transmission power,
+wherein the determined transmission power increases as the number of OFDM symbols decreases.
+
+6. The terminal of claim 5, wherein the controller is further configured to apply a component of a PUCCH transmission power adjustment for calculating the transmission power, the component being defined by the number of OFDM symbols.
+
+7. The terminal of claim 6, wherein a value of the component increases as the number of OFDM symbols decreases, and
+wherein the value of the component increases non-linearly as the number of OFDM symbol decreases.
+
+8. The terminal of claim 5, wherein the number of OFDM symbols for the uplink control information is determined by at least one of a higher layer signaling and downlink control information.
+
+9. A method (700) performed by a base station for receiving uplink signal in a wireless communication system, the method comprising:
+transmitting, to a terminal, information indicating a number of orthogonal frequency division multiplexing, OFDM, symbols for a transmission of uplink control information on a physical uplink control channel, PUCCH; and
+receiving, from the terminal, the uplink control information on the PUCCH in the OFDM symbols based on a transmission power, the transmission power being determined based on the number of OFDM symbols,
+wherein the transmission power increases as the number of OFDM symbols decreases.
+
+10. The method of claim 9, wherein the transmission power is determined by applying a component of a PUCCH transmission power adjustment for calculating the transmission power, the component being defined by the number of OFDM symbols.
+
+11. The method of claim 10, wherein a value of the component increases as the number of OFDM symbols decreases,
+wherein the value of the component increases non-linearly as the number of OFDM symbol decreases, and
+wherein the information includes at least one of a higher layer signaling and downlink control information.
+
+12. A base station (301) for receiving uplink signal in a wireless communication system, the base station comprising:
+a transceiver configured to transmit and receive signals; and
+a controller (801) configured to:
+transmit, to a terminal, information indicating a number of orthogonal frequency division multiplexing, OFDM, symbols for a transmission of uplink control information on a physical uplink control channel, PUCCH, and
+receive, from the terminal, the uplink control information on the PUCCH in the OFDM symbols based on a transmission power, the transmission power being determined based on the number of OFDM symbols,
+wherein the transmission power increases as the number of OFDM symbols decreases.
+
+13. The base station of claim 12, wherein the transmission power is determined by applying a component of a PUCCH transmission power adjustment for calculating the transmission power, the component being defined by the number of OFDM symbols.
+
+14. The base station of claim 13, wherein a value of the component increases as the number of OFDM symbols decreases, and
+wherein the value of the component increases non-linearly as the number of OFDM symbol decreases.
+
+15. The base station of claim 12, wherein the information includes at least one of a higher layer signaling and downlink control information. 

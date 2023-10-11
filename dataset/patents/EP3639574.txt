@@ -1,0 +1,41 @@
+EP3639574
+
+H04L2209/80; H04L9/0833; H04L9/3242; H04L9/3297; H04W12/037; H04W12/04; H04W12/106; H04W12/71; H04W52/0216; H04W52/0219; H04W52/0229; H04W52/0235; H04W84/12; H04W88/06; Y02D30/70; H04W12/0017; H04W12/1006
+
+1. A communication apparatus (110) comprising:
+circuitry configured to compute, using a temporal key and a number as input of a hash function, a hash value to be used by a station, STA (120-140), to determine whether or not a wake-up radio, WUR, frame (230) containing the hash value is authentic, and
+a transmitter configured to transmit, to the STA (120-140), the WUR frame (230) containing the hash value,
+characterized in that
+the hash value is computed using a transmitter address, TA, of the communication apparatus as an input of the hash function, and
+the number is a part of time synchronization function, TSF, timer.
+
+2. The communication apparatus (110) according to Claim 1,
+wherein the temporal key is a WUR Temporal Key, and the circuitry uses the WUR Temporal Key to compute the hash value for protecting the WUR frame which is an individually addressed WUR frame (230).
+
+3. The communication apparatus (110) according to Claim 1,
+wherein the temporal key is a WUR integrity group Temporal Key, and the circuitry uses the WUR integrity group Temporal Key to compute the hash value for protecting the WUR frame (230) which is a broadcast WUR frame or a group addressed WUR frame.
+
+4. The communication apparatus (110) according to one of Claims 1 to 3,
+wherein the hash value is contained in a frame check sequence, FCS, field of the WUR frame.
+
+5. The communication apparatus (110) according to one of Claims 1 to 4,
+wherein the hash value is computed from an ID field of the WUR frame (230).
+
+6. The communication apparatus (110) according to one of Claims 1 to 5,
+wherein the number is incremented by one for each of transmissions of the WUR frame (230) using the temporal key.
+
+7. The communication apparatus (110) according to Claim 6,
+wherein the number is indicated by a subfield of the WUR frame.
+
+8. A communication method implemented by a communication apparatus (110), the communication method comprising:
+computing, using a temporal key and a number as input of a hash function, a hash value to be used by a station, STA (120-140), to determine whether or not a wake-up radio, WUR, frame (230) containing the hash value is authentic; and
+transmitting, to the STA (120-140), the WUR frame (230) containing the hash value, and
+characterized in that
+the hash value is computed using a transmitter address, TA, of the communication apparatus as an input of the hash function, and
+the number is a part of time synchronization function, TSF, timer.
+
+9. The communication method according to Claim 9,
+wherein the temporal key is a WUR Temporal Key, and the WUR Temporal Key is used to compute the hash value for protecting the WUR frame which is an individually addressed WUR frame (230).
+
+10. The communication method according to Claim 9,
+wherein the temporal key is a WUR integrity group Temporal Key, and the WUR integrity group Temporal Key is used to compute the hash value for protecting the WUR frame (230) which is a broadcast WUR frame or a group addressed WUR frame. 

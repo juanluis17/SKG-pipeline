@@ -1,0 +1,56 @@
+
+EP3912367
+
+H04W12/02; H04W4/029; H04W64/006; H04W8/005
+
+1. A method of operating a mobile terminal (106) for supporting positioning of the mobile terminal (106):
+receiving a defined filter pattern from a network node (202) in a communications network or another node of the communications network;
+discovering (300) identities of a plurality of reference devices (200, 200a, 200b) based on signals received from the plurality of reference devices;
+filtering (302) the discovered identities of the plurality of reference devices to obtain a subset of identities of the plurality of reference devices that each satisfy the defined filter pattern; and
+reporting (304) information on the subset of the identities of the plurality of reference devices to the network node.
+
+2. The method of Claim 1, wherein the discovering (300) identities of the plurality of reference devices based on signals received from the plurality of reference devices comprises discovering the identity of each of the plurality of reference devices based on a signal received from each of the plurality of reference devices.
+
+3. The method of any one of Claims 1 to 2, wherein the identities of the plurality of reference devices that are discovered comprise at least one of: a WLAN basic service set identifier, a WLAN service set identifier, a media access control address, a Bluetooth address, and a Bluetooth device name.
+
+4. The method of any one of Claims 1 to 3, wherein the filtering (302) of the identities of the plurality of reference devices outputs identities for inclusion in the subset that are determined to match a string of characters or a portion of a string of characters defined by the defined filter pattern.
+
+5. The method of any one of Claims 1 to 4, wherein the filtering (302) of the identities of the plurality of reference devices outputs identities for inclusion in the subset that are determined to match at least one of: a default value defined by the defined filter pattern, a mobile country code defined by the defined filter pattern, a mobile network code defined by the defined filter pattern, a realm defined by the defined filter pattern, and a public land mobile network identifier defined by the defined filter pattern.
+
+6. The method of any one of Claims 1 to 5, further comprising:
+checking (500) for receipt of the defined filter pattern from the communications network; and
+responsive to an absence of receipt of the defined filter pattern from the communications network, using (502) at least one default value for the defined filter pattern.
+
+7. A mobile terminal (106) comprising:
+at least one processor (710);
+at least one memory (720) connected to the at least one processor (710) and storing program code for supporting positioning of the mobile terminal by being, when executed by the at least one processor (710) causes the mobile terminal to:
+receive a defined filter pattern from a network node (202) in a communications network or another node of the communications network;
+discover identities of a plurality of reference devices based on signals received from the plurality of reference devices;
+filtering the discovered identities of the plurality of reference devices to obtain a subset of identities of the plurality of reference devices that each satisfy the defined filter pattern; and
+reporting information on the subset of identities of the plurality of reference devices to the network node.
+
+8. The mobile terminal of Claim 7, wherein the discovery of identities of the plurality of reference devices based on signals received from the plurality of reference devices comprises discovering the identity of each of the plurality of reference devices based on a signal received from each of the plurality of reference devices.
+
+9. The mobile terminal of any one of Claims 7 to 8, wherein the identities of the plurality of reference devices that are discovered comprise at least one of: a WLAN basic service set identifier, a WLAN service set identifier, a media access control address, a Bluetooth address, and a Bluetooth device name.
+
+10. The mobile terminal of any of Claims 7 to 9, wherein the filtering of the identities of the plurality of reference devices obtains identities for inclusion in the subset that are determined to match a string of characters or a portion of a string of characters defined by the defined filter pattern.
+
+11. The mobile terminal of any of Claims 7 to 9, wherein the filtering of the identities of the plurality of reference devices outputs identities for inclusion in the subset that are determined to match at least one of: a default value defined by the defined filter pattern, a mobile country code defined by the defined filter pattern, a mobile network code defined by the defined filter pattern, a realm defined by the defined filter pattern, and a public land mobile network identifier defined by the defined filter pattern.
+
+12. The mobile terminal of any of Claims 7 to 11, wherein the memory (720) further stores program code that is executed by the at least one processor (710) to perform further operations comprising:
+checking for receipt of the defined filter pattern from the communications network; and
+responsive to an absence of receipt of the defined filter pattern from the communications network, using at least one default value for the defined filter pattern.
+
+13. The mobile terminal of any of Claims 7 to 12, wherein the memory (710) further stores program code that is executed by the at least one processor to perform further operations further comprising:
+determining a geographic location of the mobile terminal;
+communicating a query containing the geographic location through the communications network toward a map server requesting a listing of known business identifiers proximately located to the mobile terminal;
+receiving a response from the map server containing the listing of known business identifiers; and
+generating at least a portion of the defined filter pattern based on the listing of known business identifiers.
+
+14. The mobile terminal of any of Claims 7 to 13, wherein the filtering of the identities of the plurality of reference devices outputs identities for inclusion in the subset that are determined to contain at least a defined portion of one of the listing of known business identifiers.
+
+15. A computer program for supporting positioning of a mobile terminal (106), the computer program comprising program code to be executed by a processor (710) of a mobile terminal (106), whereby execution of the program code causes the mobile terminal (106) to perform operations comprising:
+receiving a defined filter pattern from a network node (202) in a communications network or another node of the communications network;
+discovering a plurality of reference devices based on signals received from the plurality of reference devices;
+filtering the discovered identities of the plurality of reference devices to obtain a subset of identities of the plurality of reference devices that each satisfy a defined filter pattern; and
+reporting information on the subset of the identities of the plurality of reference devices to the network node.

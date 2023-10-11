@@ -1,0 +1,38 @@
+EP3446507
+
+H04L5/0007; H04L5/0044; H04L5/0051; H04L5/0055; H04W16/14; H04W72/0446; H04W72/0453; H04W72/23; H04W74/006; H04W74/0808
+
+1. A method of wireless communication, comprising:
+receiving (1405) a downlink, DL, control message using shared radio frequency spectrum band;
+identifying (1410) a format of downlink control information, DCI, of the DL control message;
+identifying a control channel type of the DL control message from a plurality of control channel types, the plurality of control channel types comprising a first control channel type and a second control channel type;
+determining (1415) a function of the DL control message based at least in part on the identified format of the DCI, wherein the function of the DL control message comprises at least one of an uplink transmission trigger or a frame structure indication;
+determining an uplink, LTL, transmission based at least in part on the function of the DL control message;
+determining a starting time for the determined UL transmission based at least in part on the control channel type, wherein the first control channel type corresponds to the starting time being a first starting time at a first time resource and the second control channel type corresponds to the starting time being a second starting time at a second time resource; and
+transmitting the UL transmission at the determined starting time.
+
+2. The method of claim 1, further comprising:
+determining (1315) a time period for the UL transmission based at least in part on one or both of a user equipment, UE, (115) capability and the control channel type being of the first control channel type or the second control channel type, wherein the first control channel type corresponds to the time period being a first time period of a first set of time resources and the second control channel type corresponds to the time period being a second time period of a second set of time resources.
+
+3. The method of claim 2, further comprising:
+transmitting the UL transmission during the time period, wherein the UL transmission comprises at least one of a physical uplink control channel, PUCCH, message, a short PUCCH, sPUCCH, message, an enhanced PUCCH, ePUCCH, message, an acknowledgement, ACK, message corresponding to a previous DL transmission, or a physical uplink shared channel, PUSCH, message.
+
+4. The method of claim 1, further comprising:
+receiving a grant for a physical uplink shared channel, PUSCH, transmission before receiving the DL control message.
+
+5. The method of claim 1, further comprising:
+receiving a cross-transmission opportunity, TxOP, grant, wherein the function of the DL control message is a cross-TxOP grant trigger and the cross-TxOP grant is received before the cross-TxOP grant trigger; and
+transmitting the UL transmission in response to the cross-TxOP grant and the cross-TxOP grant trigger.
+
+6. The method of claim 5, further comprising:
+receiving a cross-TxOP configuration indicating a location of the cross-TxOP grant trigger.
+
+7. The method of claim 5, wherein the cross-TxOP grant trigger comprises a single bit of the DL control message.
+
+8. The method of claim 5, wherein the cross-TxOP grant trigger comprises a plurality of bits of the DL control message corresponding to a plurality of cross-TxOP grants.
+
+9. The method of claim 1, wherein the DL control message is a common physical downlink control channel, C-PDCCH.
+
+10. The method of claim 1, wherein the at least one of the uplink transmission trigger or the frame structure indication comprises at least one of a short physical uplink control channel, sPUCCH, trigger, an enhanced PUCCH, ePUCCH, trigger, or a cross-transmission opportunity, TxOP, grant trigger.
+
+11. An apparatus for wireless communication, comprising means for executing the method of any of claims 1 to 10. 

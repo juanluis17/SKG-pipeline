@@ -1,0 +1,37 @@
+EP2755389
+
+H04N19/105; H04N19/122; H04N19/159; H04N19/176; H04N19/184; H04N19/43; H04N19/436; H04N19/513; H04N19/52; H04N19/57; H04N19/70; H04N19/00678; H04N7/36
+
+1. An inter prediction method performed by a video decoding apparatus comprising:
+receiving a bitstream including information on a parallel merge level;
+(S610) deriving a merging candidate list for a current block when merge mode is applied to the current block;
+(S620) deriving motion information of the current block, based on one of a plurality of merging candidates constituting the merging candidate list; and
+(S630) performing a prediction on the current block, on the basis of the derived motion information, to generate a predicted block corresponding to the current block,
+wherein the current block is a prediction unit belonging to a merging candidate sharing unit, the merging candidate sharing unit representing a unit region for sharing of the merging candidates,
+wherein a size of the merging candidate sharing unit is determined according to the information on the parallel merge level,
+wherein plural prediction units are partitioned from a coding unit and the prediction unit is one of the plural prediction units, and
+wherein all the plural prediction units within the merging candidate sharing unit share the merging candidates.
+
+2. The inter prediction method of claim 1,
+wherein the merging candidates are located outside of the merging candidate sharing unit, and
+wherein the merging candidate list is derived as a common merging candidate list for the prediction units contained in the merging candidate sharing unit.
+
+3. The inter prediction method of claim 1, wherein the information on the parallel merge level is represented by a syntax element included in a picture parameter set syntax..
+
+4. The inter prediction method of claim 3, wherein if a value of the syntax element is 0, the size of the merging candidate sharing unit is 4x4.
+
+5. The inter prediction method of claim 4,
+wherein if a value of the syntax element is 1, the size of the merging candidate sharing unit is 8x8,
+wherein when the value of the syntax element is greater than 0, merging candidate lists for the prediction units contained in the merging candidate sharing unit can be derived in parallel.
+
+6. The inter prediction method of claim 5, wherein in the deriving of the merging candidate list, if it is determined that the merging candidate list is generated, a partitioning mode of the current prediction unit is 2NxN, 2NxnU, or 2NxnD, and the current prediction unit is a prediction unit located in a lower portion in the current prediction unit, motion information of a block located in a rightmost side among blocks adjacent to an upper portion of the block to be predicted is not used as the merging candidate.
+
+7. The inter prediction method of claim 5, wherein in the deriving of the merging candidate list, if it is determined that the merging candidate list is generated, a partitioning mode of the current prediction unit is Nx2N, nLx2N, or nRx2N, and the current prediction unit is a prediction unit located in a right side in the current prediction unit, motion information of a block located in a lowermost portion among blocks adjacent to a left side of the block to be predicted is not used as the merging candidate.
+
+8. The inter prediction method of any of claims 1 to 7, wherein the deriving of the merging candidate list and the deriving of the motion information are performed in parallel for the prediction units within the merging candidate sharing unit to which the current prediction unit belongs.
+
+9. The inter prediction method of claim 1, wherein the coding unit is a 2Nx2N block, and the current block is one of 2Nx2N block, 2NxN block, Nx2N block, NxN block, 2NxnU block, 2NxnD block, nLx2N block, nRx2N block (0 < nU, nD, nL, nR < 2N, and nU, nD, nL, nR ? N).
+
+10. The inter prediction method of claim 9, wherein in the deriving of the merging candidate list, when the size of the coding unit is 8x8 and the size of the merging candidate sharing unit is larger than 4x4, the prediction units within the merging candidate sharing unit share the merging candidates.
+
+11. A video decoding apparatus, configured to carry out any one of claims 1 to 10. 

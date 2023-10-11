@@ -1,0 +1,29 @@
+EP3326311
+
+H04L1/0003; H04L1/0005; H04L1/0009; H04L1/0038; H04L1/0046; H04L1/0072; H04L25/4927
+
+1. A transmitter (100) for transmitting a data transmission signal in a reception area, the transmitter being provided with an input (102) for receiving an information signal (IS) to be transmitted, a coding and/or modulation unit (104,106) for coding and/or modulating the information signal with a certain coding and/or modulation scheme into the data transmission signal, and an output (108) for supplying the data transmission signal, the coding and/or modulation unit (104,106,112) is adapted to code and/or modulate the information signal with n different coding and/or modulation schemes, where n is an integer for which holds: n > 2, characterised in that it is further adapted to switch between these n coding and/or modulation schemes in dependency of an additional information signal (ZI) to be transmitted, wherein the switching overs between the n coding and/or modulation schemes represent the additional information signal.
+
+2. The transmitter of claim 1, wherein the coding and/or modulation unit is provided with an input (120) for receiving the additional information signal (ZI).
+
+3. The transmitter of claim 1 or 2, wherein the coding and/or modulation unit is adapted to code and/or modulate the information signal with two different coding and/or modulation schemes in dependency of a binary additional information signal to be transmitted.
+
+4. The transmitter of claim 1, 2 or 3, wherein, in case no additional information signal is to be transmitted, the coding and/or modulation unit is adapted to code and/or modulate the information signal with a certain first coding and/or modulation scheme having a certain robustness, and during transmission of the additional information signal, the coding and/or modulation unit is adapted to code and/or modulate the information signal with the first coding and/or modulation scheme and at least a second coding and/or modulation scheme, wherein the at least second coding and/or modulation scheme has a higher robustness than the first coding and/or modulation scheme.
+
+5. The transmitter of any one of the preceding claims, wherein the coding and/or modulation unit is adapted to code the information signal with at least two different coding schemes in dependency of the additional information signal to be transmitted, and that the coding and/or modulation unit is further adapted to modulate the coded information signal with a certain modulation scheme.
+
+6. The transmitter of claim 5, wherein the at least two coding schemes differ between each other by a next higher robustness.
+
+7. The transmitter of any one of the preceding claims 1 to 4, wherein the coding and/or modulation unit is adapted to code the information signal with a certain coding scheme, and the coding and/or modulation unit is further adapted to modulate the coded information signal with at least two different modulation schemes in dependency of the additional information signal to be transmitted.
+
+8. The transmitter of claim 7, wherein the at least two modulation schemes differ between each other by a next higher robustness.
+
+9. The transmitter of any one of the preceding claims, wherein the additional information signal is a warning broadcast signal.
+
+10. A receiver (400) for receiving a data transmission signal, the receiver being provided with an input (404) for receiving the data transmission signal, a demodulation and/or decoding unit (406,408) for demodulating and/or decoding the data transmission signal with a certain demodulation and/or decoding scheme into an information signal, and an output (410) for supplying the information signal, the demodulation and/or decoding unit (406,408,412) is adapted to demodulate and/or decode a data transmission signal which is in the form of an information signal which is coded and/or modulated with n coding and/or modulation schemes, where n is an integer for which holds: n > 2, characterised in that the receiver is further adapted to derive from the switching-overs between the n coding and/or modulation schemes of the received data transmission signal an additional information signal, and to supply the additional information signal to an output (418).
+
+11. The receiver as claimed in claim 10, wherein the receiver is provided with an arrangement (512) to detect whether a data transmission signal received by the receiver is a distorted data transmission signal, and to derive a control signal in dependency of the amount of distortion detected, and that the receiver is further provided with an arrangement (514) for generating a feedback signal in dependency of the control signal and to transmit the feedback signal (530) to a transmitter.
+
+12. A system, the system comprising the transmitter of any one of claims 1 to 9 and the receiver of claim 10, wherein the receiver is adapted to demodulate and/or decode the data transmission signal which has been transmitted by the transmitter.
+
+13. The system of claim 12, for demodulating and/or decoding a data transmission signal transmitted by the transmitter of claim 3, wherein the demodulation and/or decoding unit (406,408,412) is adapted to demodulate and/or decode the data transmission signal that has been coded and/or modulated with two coding and/or modulation schemes, and the receiver is further adapted to derive the binary additional information signal from the switching-overs between the two coding and/or modulation schemes. 

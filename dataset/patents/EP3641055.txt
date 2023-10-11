@@ -1,0 +1,52 @@
+EP3641055
+
+H01Q1/243; H01Q1/245; H01Q3/247; H01Q9/145; H04B1/40; H04M1/0202; H04M1/0277; H04M1/724; H04M2201/34; H04M2250/12; H04M1/72519
+
+1. An electronic device (500) comprising:
+a housing (110) including a first plate (110A) facing a front of the electronic device (500), a second plate (110B) facing away from the first plate (110A), and a side bezel structure (504) surrounding a space between the first plate (110A) and the second plate (110B); and
+a printed circuit board (505) disposed at least at a portion of the space and including at least one processor (420), an antenna module (497), and at least one light source (531, 532, 533, 534) controlled by the at least one processor (420),
+wherein the side bezel structure (504) includes at least two segmented antenna apparatuses (511, 512, 513, 514) and at least one photo-conductive material (521, 522, 523, 524) disposed between the segmented antenna apparatuses (511, 512, 513, 514)
+and configured to
+electrically connect the segmented antenna apparatuses (511, 512, 513, 514) to each other when the at least one photo-conductive material (421, 522, 523, 524) is irradiated by the at least one light source (531, 532, 533, 534), and
+wherein the printed circuit board (505) includes the at least one light source (531, 532, 533, 534) separated by a preset distance from the at least one photo-conductive material (521, 522, 523, 524) in a direction towards the at least one photo-conductive material (521, 522, 523, 524).
+
+2. The electronic device (500) of claim 1, wherein, upon determining that it is necessary to change the antenna length according to a communication situation, the at least one processor (420) is configured to change the electrical state of the at least one photo-conductive material (521, 522, 523, 524) by controlling the at least one light source (531, 532, 533, 534).
+
+3. The electronic device (500) of claim 1,
+wherein the printed circuit board (505) further includes a grip sensor (476), and
+wherein the at least one processor is configured to obtain grip information about a user's grip on the electronic device (500) by use of the grip sensor (476).
+
+4. The electronic device (500) of claim 3, wherein the at least one processor (420) is further configured to:
+select some of the at least one light source (531, 532, 533, 534) based on at least the grip information, and
+turn on the selected light source (531, 532, 533, 534).
+
+5. The electronic device (500) of claim 4, wherein the at least one processor (420) is further configured to:
+identify the grip position of the user based on at least the grip information, and
+select a light source (531, 532, 533, 534) separated by a preset distance or more from the grip position.
+
+6. The electronic device (500) of claim 1, wherein the photo-conductive material (521, 522, 523, 524) is coupled with an insulation material (905) on a surface facing the outside of the electronic device (500).
+
+7. The electronic device (500) of claim 1, wherein the segmented antenna apparatuses (511, 512, 513, 514) include a conductive material.
+
+8. The electronic device (500) of claim 1, further comprising:
+a communication circuit (490) electrically connected to the at least two segmented antenna apparatuses (511, 512, 513, 514).
+
+9. The electronic device (500) of claim 8,
+wherein the at least two segmented antenna apparatuses (511, 512, 513, 514)comprise a first conductive member (802, 903) having a first antenna length, a second conductive member (803, 904) having a second antenna length, and the photo-conductive material (805, 906) disposed between the first conductive member (802, 903) and the second conductive member (803, 904), and configured to constitute at least a portion of an outer surface of the electronic device (500).
+
+10. The electronic device (500) of claim 9,
+wherein the at least one processor (420) is configured to:
+communicate with, while light is not output from the at least one light source (531, 532, 533, 534), an external electronic device (402, 404) via the communication circuit (490) through a first frequency band corresponding to the first antenna length or a second frequency band corresponding to the second antenna length,
+control the at least one light source (531, 532, 533, 534) to emit light to the photo-conductive material (805, 906), and
+communicate with, when the first conductive member (802, 903) and the second conductive member (803, 904) are electrically connected to each other through the photo-conductive material (805, 906) irradiated by light so as to have a third antenna length, while light is output from the at least one light source (531, 532, 533, 534), an external electronic device (402, 404) via the communication circuit (490) through a third frequency band corresponding to the third antenna length.
+
+11. The electronic device (500) of claim 10, wherein, upon determining that it is necessary to change the antenna length according to a communication situation, the at least one processor (420) is further configured to control the at least one light source (531, 532, 533, 534) to change the electrical state of the at least one photo-conductive material (805, 906).
+
+12. The electronic device (500) of claim 10, further comprising a grip sensor (476),
+wherein the grip sensor (476) is used to obtain grip information about a grip position of a user on the electronic device (500).
+
+13. The electronic device (500) of claim 12, wherein the at least one processor (420) is further configured to control the at least one light source (531, 532, 533, 534) based on the grip information.
+
+14. The electronic device (500) of claim 10, wherein the at least one processor (420) is further configured to identify a frequency band used by the communication circuit (490) to control the at least one light source (531, 532, 533, 534).
+
+15. The electronic device (500) of claim 10, wherein the photo-conductive material (521, 522, 523, 524, 906) is coupled with an insulation material (905, 1010, 1020) on a surface facing the outside of the electronic device (500). 

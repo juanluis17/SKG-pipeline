@@ -4,3 +4,4 @@ outputs/
 .idea/
 resources/
 src/construction/ckpts/
+src_old/
